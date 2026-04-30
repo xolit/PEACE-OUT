@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cwjc7sdndkpcg"]
+
+[ext_resource type="Texture2D" uid="uid://c6gqw2d5g8na8" path="res://MAP/texture/Horror_Floor_14-128x128.png" id="1_civdt"]
+
+[resource]
+albedo_color = Color(0.42655405, 0.24882153, 0.14414218, 1)
+albedo_texture = ExtResource("1_civdt")
+uv1_scale = Vector3(0.77, 0.77, 0.77)
+uv1_triplanar = true
