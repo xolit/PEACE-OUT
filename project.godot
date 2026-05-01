@@ -12,11 +12,16 @@ config_version=5
 
 config/name="PEACE OUT"
 config/version="1.0"
-run/main_scene="uid://dl4dguve7rx5p"
+run/main_scene="uid://ojledebb0kax"
 config/quit_on_go_back=false
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="uid://dfimi5rd04nui"
 config/windows_native_icon="res://32x32_windows_icon.ico"
+
+[autoload]
+
+Global="*res://GLOBALS/Script/Global.gd"
+GlobalSave="*res://GLOBALS/Script/GlobalSave.gd"
 
 [input]
 

@@ -33,8 +33,6 @@ func _resume() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
-func _on_resume_button_pressed() -> void:
-	_resume()
 
-func _on_quit_button_pressed() -> void:
-	get_tree().quit()
+func _on_menu_pressed() -> void:
+	Global.change_scene("res://LOBBY/lobby.tscn")

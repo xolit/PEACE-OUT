@@ -36,21 +36,33 @@ var _rotation_target: Vector3 = Vector3.ZERO
 var Health: float = 100.0
 
 func _ready() -> void:
-	# Optimization: Lower latency for mobile touch
 	Input.set_use_accumulated_input(false)
 	
 	# Initial camera sync
 	_rotation_target.y = rotation.y
 	_rotation_target.x = camera.rotation.x
 	
-	# Smart Device Detection
-	if OS.has_feature("pc"):
+	# Load platform preference from GlobalSave
+	var saved_platform = GlobalSave.Contents_to_save.get("platform", "PC")
+	
+	_apply_platform_settings(saved_platform)
+
+func _apply_platform_settings(platform: String) -> void:
+	if platform == "PC":
+		# PC Setup
 		mobile_controls.hide()
-		_setup_device_emulation(false, true) # PC doesn't need mouse-to-touch
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		
+		# Emulation: We want touch to act like mouse (for UI)
+		# but we don't want mouse to act like touch
+		_setup_device_emulation(false, true) 
 	else:
+		# Mobile Setup
 		mobile_controls.show()
-		_setup_device_emulation(true, false) # Mobile needs mouse-from-touch
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		
+		# Emulation: We want mouse to act like touch (for testing on PC)
+		_setup_device_emulation(true, false)
 
 func _input(event: InputEvent) -> void:
 	# Mouse handling

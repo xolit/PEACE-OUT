@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b7airxa0yw8sq"]
+[gd_scene load_steps=17 format=3 uid="uid://b7airxa0yw8sq"]
 
 [ext_resource type="Script" uid="uid://2gcn1n8ubplm" path="res://PLAYER/scripts/controller.gd" id="1_i10xq"]
 [ext_resource type="Texture2D" uid="uid://bqc2t2xj6jduu" path="res://UI/crosshair.png" id="2_d1135"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bj0p2abaxutjm" path="res://UI/jump.png" id="3_bql2f"]
 [ext_resource type="Texture2D" uid="uid://bavk8avx2uy3a" path="res://UI/use.png" id="4_gvfuq"]
 [ext_resource type="Texture2D" uid="uid://d15mc4x7320ua" path="res://UI/sprint.png" id="5_d1135"]
+[ext_resource type="Script" uid="uid://cdbtetdv2o5r8" path="res://PLAYER/scripts/timer.gd" id="8_3bb6o"]
 [ext_resource type="AudioStream" uid="uid://co3fyalb2fb5v" path="res://PLAYER/music/running.mp3" id="8_45mp0"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x3syo"]
@@ -160,7 +161,6 @@ theme_override_font_sizes/font_size = 111
 text = "RETRY"
 
 [node name="pause_menu" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("game_over_screen")]
-process_mode = 3
 visible = false
 z_index = 1
 layout_mode = 3
@@ -334,6 +334,22 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.38039216, 0.09411765, 0.12941177, 0.16470589)
 
+[node name="timer_label" type="Label" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.216
+anchor_right = 0.216
+offset_left = 6.1679993
+offset_top = 4.0
+offset_right = 226.168
+offset_bottom = 122.0
+theme_override_font_sizes/font_size = 86
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_3bb6o")
+
+[node name="Timer" type="Timer" parent="CanvasLayer/timer_label"]
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_45mp0")
@@ -345,6 +361,6 @@ autoplay = true
 parameters/looping = true
 
 [connection signal="button_down" from="CanvasLayer/gameover/Button" to="." method="_on_button_button_down"]
-[connection signal="pressed" from="CanvasLayer/pause_menu/resume" to="CanvasLayer/pause_menu" method="_on_resume_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/pause_menu/menu" to="CanvasLayer/pause_menu" method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/pause_menu/resume" to="CanvasLayer/pause_menu" method="_resume"]
+[connection signal="pressed" from="CanvasLayer/pause_menu/menu" to="CanvasLayer/pause_menu" method="_on_menu_pressed"]
 [connection signal="pressed" from="CanvasLayer/mobile_controls/jump" to="." method="_handle_jump"]
