@@ -9,7 +9,6 @@ extends CharacterBody3D
 
 @export_group("Camera Settings")
 @export var mouse_sensitivity: float = 0.002
-@export var touch_sensitivity: float = 0.0015
 @export var smoothing_weight: float = 20.0
 
 @export_group("Total enemies map")
@@ -18,14 +17,21 @@ extends CharacterBody3D
 ## --- Nodes ---
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
-@onready var mobile_controls: Control = $CanvasLayer/mobile_controls
 @onready var rear_marker = $CanvasLayer/SubViewportContainer/SubViewport/rear_cam_marker
 @onready var rear_camera = $CanvasLayer/SubViewportContainer/SubViewport/rear_cam_marker/back_cam
 @onready var health_bar: ProgressBar = $CanvasLayer/health_bar
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var gameover: Control = $CanvasLayer/gameover
+@onready var ray_coll: RayCast3D = $Head/Camera3D/RayCast3D
 
-#sounds
+
+
+@onready var menu_exit_btn: TextureButton = $CanvasLayer/settings/menu
+
+
+
+@onready var menu_handler: Node = $Menu_handler
+
+# Sounds
 @onready var run_sfx: AudioStreamPlayer3D = $run_sfx
 
 ## --- Internal Variables ---
@@ -36,42 +42,18 @@ var _rotation_target: Vector3 = Vector3.ZERO
 var Health: float = 100.0
 
 func _ready() -> void:
+	menu_exit_btn.hide()
 	Input.set_use_accumulated_input(false)
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	# Initial camera sync
 	_rotation_target.y = rotation.y
 	_rotation_target.x = camera.rotation.x
-	
-	# Load platform preference from GlobalSave
-	var saved_platform = GlobalSave.Contents_to_save.get("platform", "PC")
-	
-	_apply_platform_settings(saved_platform)
-
-func _apply_platform_settings(platform: String) -> void:
-	if platform == "PC":
-		# PC Setup
-		mobile_controls.hide()
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		
-		# Emulation: We want touch to act like mouse (for UI)
-		# but we don't want mouse to act like touch
-		_setup_device_emulation(false, true) 
-	else:
-		# Mobile Setup
-		mobile_controls.show()
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		
-		# Emulation: We want mouse to act like touch (for testing on PC)
-		_setup_device_emulation(true, false)
 
 func _input(event: InputEvent) -> void:
 	# Mouse handling
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		_camera_input += event.relative * mouse_sensitivity
-		
-	# Touch handling
-	if event is InputEventScreenDrag:
-		_camera_input += event.relative * touch_sensitivity
 
 func _process(delta: float) -> void:
 	rear_camera.global_transform = rear_marker.global_transform
@@ -81,11 +63,38 @@ func _physics_process(delta: float) -> void:
 	_apply_gravity(delta)
 	_handle_jump()
 	_handle_sprint()
-	_handle_movement(delta) 
+	_handle_movement(delta)
 	_handle_sounds()
+	_check_collision()
 	move_and_slide()
+	if Input.is_action_just_pressed("esc"):
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			menu_exit_btn.show()
+		else:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			menu_exit_btn.hide()
+			
 
 ## --- Logic Functions ---
+
+func _check_collision() -> void:
+	if ray_coll.is_colliding():
+		var collider = ray_coll.get_collider()
+		var door = collider.get_parent()
+		if door and (door.name.to_lower().contains("door") or door.is_in_group("door")):
+			menu_handler.door_opn_txt = true
+			if Input.is_action_just_pressed("interact"):
+				var door_cool = collider
+				# climb up until we find the node that has the door script
+				while door_cool and not door_cool.has_method("_toggle_door"):
+					door_cool = door_cool.get_parent()
+				if door_cool:
+					door_cool._toggle_door()
+		else:
+			menu_handler.door_opn_txt = false
+	else:
+		menu_handler.door_opn_txt = false
 
 func _handle_camera_rotation(delta: float) -> void:
 	_rotation_target.y -= _camera_input.x
@@ -99,7 +108,7 @@ func _handle_camera_rotation(delta: float) -> void:
 
 func _handle_movement(delta: float) -> void:
 	var input_dir := Input.get_vector("left", "right", "up", "down")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized() 
+	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	if direction:
 		velocity.x = lerp(velocity.x, direction.x * _current_speed, acceleration * delta)
@@ -113,22 +122,17 @@ func _handle_jump() -> void:
 		velocity.y = jump_velocity
 
 func _handle_sounds() -> void:
-	# Check if the player is on the floor and actually moving
-	# We use a small threshold (0.1) to avoid sounds when barely sliding
 	var horizontal_velocity = Vector2(velocity.x, velocity.z).length()
 	
 	if is_on_floor() and horizontal_velocity > 0.1:
 		if not run_sfx.playing:
 			run_sfx.play()
-		
-		# Optional: Speed up the audio pitch when sprinting
 		run_sfx.pitch_scale = 1.2 if _current_speed == sprint_speed else 1.0
 	else:
 		if run_sfx.playing:
 			run_sfx.stop()
 
 func _handle_sprint() -> void:
-	# Sprint only if moving forward (y < 0 in get_vector)
 	var is_moving_forward = Input.get_vector("left", "right", "up", "down").y < -0.1
 	if Input.is_action_pressed("sprint") and is_moving_forward:
 		_current_speed = sprint_speed
@@ -141,47 +145,29 @@ func _apply_gravity(delta: float) -> void:
 
 ## --- Helpers ---
 
-func _setup_device_emulation(touch_from_mouse: bool, mouse_from_touch: bool) -> void:
-	# ProjectSettings.set_setting requires a restart to take effect in some cases, 
-	# but setting it here ensures consistent behavior in exported builds.
-	ProjectSettings.set_setting("input_devices/pointing/emulate_touch_from_mouse", touch_from_mouse)
-	ProjectSettings.set_setting("input_devices/pointing/emulate_mouse_from_touch", mouse_from_touch)
-
 func _damage() -> void:
-	# 1. Subtract health first
 	Health -= 10
-	
-	# 2. Update UI
 	if health_bar:
 		health_bar.value = Health
-	
-	# 3. Play animation
 	if animation_player.has_animation("damage"):
 		animation_player.play("damage")
-	
-	# 4. Check for death
 	if Health <= 0:
 		_die()
 
 func _die() -> void:
 	Health = 0
-	# 1. Show cursor and Game Over screen
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	gameover.show()
+	menu_handler._game_over()
 	
-	# 2. Stop this node from taking input
 	set_process_input(false)
 	set_physics_process(false)
 	set_process(false)
 	
-	# 3. Clean up enemies
 	for enemy in Total_enemies:
 		if is_instance_valid(enemy):
 			enemy.queue_free()
 	Total_enemies.clear()
 
-
-
 func _on_button_button_down() -> void:
-	get_tree().paused = false # Add this line
+	get_tree().paused = false
 	get_tree().reload_current_scene()

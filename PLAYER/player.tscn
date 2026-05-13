@@ -2,17 +2,17 @@
 
 [ext_resource type="Script" uid="uid://2gcn1n8ubplm" path="res://PLAYER/scripts/controller.gd" id="1_i10xq"]
 [ext_resource type="Texture2D" uid="uid://bqc2t2xj6jduu" path="res://UI/crosshair.png" id="2_d1135"]
-[ext_resource type="Script" uid="uid://bqd0k7ss4rmu0" path="res://PLAYER/scripts/pause_menu.gd" id="2_yrfig"]
-[ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="3_6i24g"]
-[ext_resource type="Texture2D" uid="uid://bj0p2abaxutjm" path="res://UI/jump.png" id="3_bql2f"]
-[ext_resource type="Texture2D" uid="uid://bavk8avx2uy3a" path="res://UI/use.png" id="4_gvfuq"]
-[ext_resource type="Texture2D" uid="uid://d15mc4x7320ua" path="res://UI/sprint.png" id="5_d1135"]
+[ext_resource type="Script" uid="uid://ve35dtba5c3j" path="res://PLAYER/scripts/menu_handler.gd" id="2_gvfuq"]
+[ext_resource type="AudioStream" uid="uid://comrd8oc51gbj" path="res://PLAYER/music/game-over.mp3" id="3_yrfig"]
+[ext_resource type="Texture2D" uid="uid://dvnh7epb4r21k" path="res://UI/exit_btn.png" id="5_d1135"]
+[ext_resource type="Texture2D" uid="uid://5p1ye3dr2e0b" path="res://UI/setting_btn.png" id="6_3bb6o"]
+[ext_resource type="PackedScene" uid="uid://tka0shj4j7pj" path="res://LOBBY/settings/settings.tscn" id="6_45mp0"]
 [ext_resource type="Script" uid="uid://cdbtetdv2o5r8" path="res://PLAYER/scripts/timer.gd" id="8_3bb6o"]
 [ext_resource type="AudioStream" uid="uid://co3fyalb2fb5v" path="res://PLAYER/music/running.mp3" id="8_45mp0"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x3syo"]
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_x3syo"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_yrfig"]
 points = PackedVector3Array(-0.12520654, -0.532801, -0.4805069, 0.022783129, 0.4760704, 0.49888408, 0.16971254, 0.5591441, 0.46417162, 0.23105091, -0.8035912, 0.32045516, 0.40741014, 0.651043, -0.24352328, -0.4827893, 0.59484255, 0.082213186, -0.3628679, -0.68231165, 0.2896967, 0.46904355, -0.65452886, -0.06627126, -0.12744367, 0.8427015, -0.33810276, -0.39343542, -0.6839421, -0.24471663, 0.43825462, 0.62330925, 0.20084947, 0.0841477, 0.977454, 0.11479468, -0.06820232, -0.9764576, -0.12927033, 0.20054972, -0.56312895, -0.4514544, -0.18552664, 0.59545326, -0.4534751, -0.27336287, 0.59226835, 0.40775412, -0.0069364863, -0.47682306, 0.49966025, 0.37582088, -0.5886136, 0.31695515, 0.111579016, 0.5630594, -0.48117727, -0.41725034, 0.5278656, -0.27049688, -0.48454633, -0.59697217, -0.06650971, -0.27974695, 0.90856135, 0.05333608, -0.25019687, -0.8807117, 0.20531891, 0.263647, -0.90277094, -0.1273943, 0.29336792, 0.8715263, -0.15719566, 0.3734115, -0.5263189, -0.32824618, 0.4996626, 0.47664148, -0.0068885577, 0.053105574, 0.8750009, 0.32470253, -0.15454252, -0.5908538, 0.4658794, -0.09727988, -0.7823577, -0.39818847, -0.3876489, -0.49817133, 0.31564978, -0.30067965, -0.58799505, -0.38890144)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gvfuq"]
@@ -83,11 +83,18 @@ _data = {
 
 [node name="Player" type="CharacterBody3D"]
 process_mode = 1
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 script = ExtResource("1_i10xq")
+
+[node name="Menu_handler" type="Node" parent="."]
+script = ExtResource("2_gvfuq")
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="."]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1.5539373, 0)
 remote_path = NodePath("../CanvasLayer/SubViewportContainer/SubViewport/rear_cam_marker/back_cam")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 2.056037, -0.6182437)
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7392824, 0)
@@ -95,17 +102,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7392824, 0)
 [node name="Camera3D" type="Camera3D" parent="Head"]
 
 [node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
-target_position = Vector3(0, -1, -90)
+transform = Transform3D(1.9106855e-15, 4.3711385e-08, 2, 1, -4.3711385e-08, 0, 4.371139e-08, 0.99999994, -8.742278e-08, 0, 0, 0)
+target_position = Vector3(0, -4, 0)
+
+[node name="hand" type="Node3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7482548, 0)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Head/hand"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.33191383, 0.10677695, 0)
+light_color = Color(1, 1, 0.93333334, 1)
+spot_range = 9.929
+spot_angle = 32.01
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(0.7, 0, 0, 0, 0.8, 0, 0, 0, 0.7, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_x3syo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("ConvexPolygonShape3D_x3syo")
+transform = Transform3D(0.7, 0, 0, 0, 0.8, 0, 0, 0, 0.7, 0, 1, 0)
+shape = SubResource("ConvexPolygonShape3D_yrfig")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." groups=["ui"]]
+process_mode = 3
 
 [node name="gameover" type="Control" parent="CanvasLayer"]
 visible = false
@@ -160,66 +178,8 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 111
 text = "RETRY"
 
-[node name="pause_menu" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("game_over_screen")]
-visible = false
-z_index = 1
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("2_yrfig")
-game_over_screen = NodePath("../gameover")
-
-[node name="Label" type="Label" parent="CanvasLayer/pause_menu"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -498.0
-offset_top = -234.0
-offset_right = 490.0
-offset_bottom = -48.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 136
-text = "GAME PAUSED!"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/pause_menu"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.49803922, 0.38431373, 0.34117648, 0.41960785)
-
-[node name="resume" type="Button" parent="CanvasLayer/pause_menu"]
-z_index = 2
-layout_mode = 0
-offset_left = 276.0
-offset_top = 433.0
-offset_right = 348.0
-offset_bottom = 464.0
-theme_override_font_sizes/font_size = 66
-text = "RESUME"
-
-[node name="menu" type="Button" parent="CanvasLayer/pause_menu"]
-z_index = 2
-layout_mode = 0
-offset_left = 634.0
-offset_top = 433.0
-offset_right = 855.0
-offset_bottom = 538.0
-theme_override_font_sizes/font_size = 71
-text = "MENU"
+[node name="game_over" type="AudioStreamPlayer" parent="CanvasLayer/gameover"]
+stream = ExtResource("3_yrfig")
 
 [node name="crosshair" type="TextureRect" parent="CanvasLayer"]
 anchors_preset = 8
@@ -251,64 +211,23 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_d1135")
 value = 100.0
 show_percentage = false
 
-[node name="mobile_controls" type="Control" parent="CanvasLayer"]
+[node name="door_colliding_label" type="Label" parent="CanvasLayer"]
 visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="jump" type="TextureButton" parent="CanvasLayer/mobile_controls"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 772.0
-offset_top = 312.0
-offset_right = 952.0
-offset_bottom = 492.0
-grow_horizontal = 0
+offset_left = -337.0
+offset_top = -185.0
+offset_right = 371.0
+offset_bottom = -94.0
+grow_horizontal = 2
 grow_vertical = 0
-texture_normal = ExtResource("3_bql2f")
-stretch_mode = 0
-
-[node name="use" type="TextureButton" parent="CanvasLayer/mobile_controls"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = 801.0
-offset_top = 167.99998
-offset_right = 981.0
-offset_bottom = 348.0
-grow_horizontal = 0
-scale = Vector2(0.7, 0.7)
-texture_normal = ExtResource("4_gvfuq")
-stretch_mode = 0
-
-[node name="sprint" type="TextureButton" parent="CanvasLayer/mobile_controls"]
-layout_mode = 0
-offset_left = 157.0
-offset_top = 168.0
-offset_right = 337.0
-offset_bottom = 348.0
-scale = Vector2(0.8, 0.8)
-texture_normal = ExtResource("5_d1135")
-stretch_mode = 0
-
-[node name="Virtual Joystick" parent="CanvasLayer/mobile_controls" instance=ExtResource("3_6i24g")]
-layout_mode = 1
-offset_left = 69.0
-offset_top = 262.0
-offset_right = 369.0
-offset_bottom = 562.0
-pressed_color = Color(0.72344416, 0.64506656, 0.65012395, 1)
-action_left = "left"
-action_right = "right"
-action_up = "up"
-action_down = "down"
+theme_override_font_sizes/font_size = 66
+text = "Door"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer"]
 offset_right = 239.0
@@ -323,7 +242,7 @@ render_target_update_mode = 4
 [node name="rear_cam_marker" type="Marker3D" parent="CanvasLayer/SubViewportContainer/SubViewport"]
 
 [node name="back_cam" type="Camera3D" parent="CanvasLayer/SubViewportContainer/SubViewport/rear_cam_marker"]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1.5539373, 0)
+transform = Transform3D(-2, 0, 1.7484555e-07, 0, 2, 0, -1.7484555e-07, 0, -2, 0, 3.1078746, 0)
 
 [node name="damage_Rect" type="ColorRect" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0)
@@ -350,6 +269,103 @@ script = ExtResource("8_3bb6o")
 
 [node name="Timer" type="Timer" parent="CanvasLayer/timer_label"]
 
+[node name="settings_btn" type="TextureButton" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -132.0
+offset_top = 32.0
+offset_right = 48.0
+offset_bottom = 212.0
+grow_horizontal = 0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("6_3bb6o")
+
+[node name="settings" parent="CanvasLayer" instance=ExtResource("6_45mp0")]
+
+[node name="menu" type="TextureButton" parent="CanvasLayer/settings"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 804.0
+offset_top = -113.0
+offset_right = 984.0
+offset_bottom = 67.0
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("5_d1135")
+
+[node name="menu_ui" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 239.0
+offset_top = 122.0
+offset_right = -220.0
+offset_bottom = -130.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/menu_ui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.33468834, 0.16010898, 0.1611757, 1)
+
+[node name="hbox" type="HBoxContainer" parent="CanvasLayer/menu_ui"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -179.5
+offset_top = -128.0
+offset_right = 150.5
+offset_bottom = -55.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 19
+alignment = 1
+
+[node name="menu" type="Button" parent="CanvasLayer/menu_ui/hbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "OK"
+
+[node name="cancel" type="Button" parent="CanvasLayer/menu_ui/hbox" groups=["ui"]]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "CANCEL"
+
+[node name="Label" type="Label" parent="CanvasLayer/menu_ui"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.5
+offset_top = -118.0
+offset_right = 225.5
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 36
+text = "Changes Are Not Saved!
+Do You Still Want To Quit?"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_45mp0")
@@ -357,10 +373,12 @@ libraries = {
 
 [node name="run_sfx" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("8_45mp0")
+volume_db = 4.66
 autoplay = true
+bus = &"Sfx"
 parameters/looping = true
 
 [connection signal="button_down" from="CanvasLayer/gameover/Button" to="." method="_on_button_button_down"]
-[connection signal="pressed" from="CanvasLayer/pause_menu/resume" to="CanvasLayer/pause_menu" method="_resume"]
-[connection signal="pressed" from="CanvasLayer/pause_menu/menu" to="CanvasLayer/pause_menu" method="_on_menu_pressed"]
-[connection signal="pressed" from="CanvasLayer/mobile_controls/jump" to="." method="_handle_jump"]
+[connection signal="pressed" from="CanvasLayer/settings/menu" to="Menu_handler" method="_on_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/menu_ui/hbox/menu" to="Menu_handler" method="_on_go_to_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/menu_ui/hbox/cancel" to="Menu_handler" method="_on_cencel_pressed"]

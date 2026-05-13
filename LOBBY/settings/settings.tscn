@@ -1,0 +1,189 @@
+[gd_scene load_steps=8 format=3 uid="uid://tka0shj4j7pj"]
+
+[ext_resource type="Script" uid="uid://eslmg5lq5w72" path="res://LOBBY/settings/settings.gd" id="1_us67y"]
+[ext_resource type="Texture2D" uid="uid://dog2eymlcql6m" path="res://UI/quit_btn.png" id="2_tjbjh"]
+[ext_resource type="Texture2D" uid="uid://qjfuqhbacxwj" path="res://UI/off_toggle_btn.png" id="3_6f2di"]
+[ext_resource type="Texture2D" uid="uid://dl7axege7hp8f" path="res://UI/on_toggle_btn.png" id="4_jiryf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xm55d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k6puf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jekgc"]
+
+[node name="settings" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 114.0
+offset_top = 69.0
+offset_right = -117.0
+offset_bottom = -73.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_us67y")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.45490196, 0.27058825, 0.20784314, 0.79607844)
+
+[node name="save_btn" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -88.5
+offset_top = -126.0
+offset_right = 86.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 61
+text = "Save"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -435.0
+offset_top = -222.0
+offset_right = 435.0
+offset_bottom = 116.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 39
+alignment = 1
+
+[node name="volume" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="vol_label" type="Label" parent="ScrollContainer/VBoxContainer/volume"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 86
+text = "Volume:"
+horizontal_alignment = 2
+
+[node name="HSeparator2" type="VSeparator" parent="ScrollContainer/VBoxContainer/volume"]
+layout_mode = 2
+theme_override_constants/separation = -31
+theme_override_styles/separator = SubResource("StyleBoxEmpty_xm55d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer/volume"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="vol_Slider" type="HSlider" parent="ScrollContainer/VBoxContainer/volume/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 100.0
+rounded = true
+
+[node name="vol_label" type="Label" parent="ScrollContainer/VBoxContainer/volume/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "100%"
+
+[node name="Music" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="music" type="Label" parent="ScrollContainer/VBoxContainer/Music"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 86
+text = "Music: "
+
+[node name="HSeparator" type="VSeparator" parent="ScrollContainer/VBoxContainer/Music"]
+layout_mode = 2
+theme_override_constants/separation = 259
+theme_override_styles/separator = SubResource("StyleBoxEmpty_k6puf")
+
+[node name="ColorRect" type="TextureRect" parent="ScrollContainer/VBoxContainer/Music"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_tjbjh")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="music_btn" type="TextureButton" parent="ScrollContainer/VBoxContainer/Music"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("3_6f2di")
+texture_pressed = ExtResource("4_jiryf")
+stretch_mode = 3
+
+[node name="sfx" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="sfx" type="Label" parent="ScrollContainer/VBoxContainer/sfx"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 86
+text = "Sfx: "
+
+[node name="HSeparator2" type="VSeparator" parent="ScrollContainer/VBoxContainer/sfx"]
+layout_mode = 2
+theme_override_constants/separation = 379
+theme_override_styles/separator = SubResource("StyleBoxEmpty_xm55d")
+
+[node name="sfx_btn" type="TextureButton" parent="ScrollContainer/VBoxContainer/sfx"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("3_6f2di")
+texture_pressed = ExtResource("4_jiryf")
+stretch_mode = 3
+
+[node name="Senstivity" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Senstivity" type="Label" parent="ScrollContainer/VBoxContainer/Senstivity"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 86
+text = "Sens: "
+
+[node name="HSeparator2" type="VSeparator" parent="ScrollContainer/VBoxContainer/Senstivity"]
+layout_mode = 2
+theme_override_constants/separation = 214
+theme_override_styles/separator = SubResource("StyleBoxEmpty_jekgc")
+
+[node name="input4sens" type="LineEdit" parent="ScrollContainer/VBoxContainer/Senstivity"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 51
+text = "0.002"
+placeholder_text = "sens"
+alignment = 1
+max_length = 6
+context_menu_enabled = false
+emoji_menu_enabled = false
+
+[connection signal="pressed" from="save_btn" to="." method="_on_save_btn_pressed"]
+[connection signal="value_changed" from="ScrollContainer/VBoxContainer/volume/VBoxContainer/vol_Slider" to="." method="_on_vol_slider_value_changed"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/Music/music_btn" to="." method="_on_music_btn_toggled"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/sfx/sfx_btn" to="." method="_on_sfx_btn_toggled"]

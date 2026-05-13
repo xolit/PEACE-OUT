@@ -1,45 +1,33 @@
 extends Control
 
-var platform: String
-@onready var mobile_check: CheckBox = $MOBLIE_Check
-@onready var pc_check: CheckBox = $PC_Check
+@onready var settings: Control = $settings
+@onready var settings_btn: TextureButton = $settings_btn
+
+var data: Dictionary
+
+#sounds
+@onready var click_sfx: AudioStreamPlayer = $click_sfx
+@onready var back_sfx: AudioStreamPlayer = $back_sfx
+@onready var menu_sfx: AudioStreamPlayer = $menu_sfx
 
 func _ready() -> void:
-	# 1. Get the latest saved data
-	platform = GlobalSave.Contents_to_save["platform"]
-	
-	# 2. Update the UI to match the data
-	if platform == "MOBILE":
-		mobile_check.set_pressed_no_signal(true)
-		pc_check.set_pressed_no_signal(false)
-	else:
-		pc_check.set_pressed_no_signal(true)
-		mobile_check.set_pressed_no_signal(false)
-
-func _on_moblie_check_toggled(button_pressed: bool) -> void:
-	if button_pressed:
-		platform = "MOBILE"
-		pc_check.set_pressed_no_signal(false)
-		save_platform_choice() # Save the change
-	else:
-		mobile_check.set_pressed_no_signal(true)
-
-func _on_pc_check_toggled(button_pressed: bool) -> void:
-	if button_pressed:
-		platform = "PC"
-		mobile_check.set_pressed_no_signal(false)
-		save_platform_choice() # Save the change
-	else:
-		pc_check.set_pressed_no_signal(true)
-
-# Helper function to update the GlobalSave dictionary and save to disk
-func save_platform_choice() -> void:
-	GlobalSave.Contents_to_save["platform"] = platform
-	GlobalSave._save()
+	data = GlobalSave.Contents_to_save
 
 func _on_play_pressed() -> void:
+	if data.get("Sfx", true):
+		click_sfx.play()
 	Global.change_scene("res://MAP/map.tscn")
+	#Global.change_scene("res://MAP/testMap.tscn")
 
 
 func _on_quit_pressed() -> void:
+	if data.get("Sfx", true):
+		back_sfx.play()
 	get_tree().quit()
+
+
+func _on_settings_btn_pressed() -> void:
+	if data.get("Sfx", true):
+		menu_sfx.play()
+	settings.show()
+	settings_btn.hide()

@@ -1,0 +1,96 @@
+[gd_scene load_steps=12 format=3 uid="uid://cwkow7h43aq16"]
+
+[ext_resource type="Material" uid="uid://cwjc7sdndkpcg" path="res://MAP/materials/floor.tres" id="1_tbv37"]
+[ext_resource type="PackedScene" uid="uid://gid3d1idfkdm" path="res://MAP/components/paterols/paterols.tscn" id="2_tfynl"]
+[ext_resource type="PackedScene" uid="uid://dibb22osy660l" path="res://ENEMY/abd_enemy.tscn" id="3_vk0xl"]
+[ext_resource type="PackedScene" uid="uid://b7airxa0yw8sq" path="res://PLAYER/player.tscn" id="4_eciki"]
+[ext_resource type="PackedScene" uid="uid://dwgelcy1myn8p" path="res://MAP/components/door/scene/door.tscn" id="5_tfynl"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_w1oi2"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_es4u7"]
+sky_material = SubResource("ProceduralSkyMaterial_w1oi2")
+
+[sub_resource type="Environment" id="Environment_8hxfa"]
+background_mode = 2
+sky = SubResource("Sky_es4u7")
+tonemap_mode = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_efhdw"]
+size = Vector2(50, 50)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_tbv37"]
+data = PackedVector3Array(25, 0, 25, -25, 0, 25, 25, 0, -25, -25, 0, 25, -25, 0, -25, 25, 0, -25)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_vk0xl"]
+data = PackedVector3Array(-0.5, -3.5, 25, -0.5, -3.5, -25, -0.5, 3.5, -25, 0.5, -3.5, -25, -0.5, -3.5, -25, -0.5, -3.5, 25, -0.5, 3.5, -25, -0.5, -3.5, -25, 0.5, -3.5, -25, -0.5, 3.5, -25, -0.5, 3.5, 25, -0.5, -3.5, 25, -0.5, -3.5, 25, -0.5, 3.5, 25, 0.5, 3.5, 25, 0.5, 3.5, 25, -0.5, 3.5, 25, -0.5, 3.5, -25, -0.5, -3.5, 25, 0.5, -3.5, 25, 0.5, -3.5, -25, 0.5, 3.5, 25, 0.5, -3.5, 25, -0.5, -3.5, 25, 0.5, -3.5, -25, 0.5, -3.5, 25, 0.5, 3.5, 25, 0.5, -3.5, -25, 0.5, 3.5, -25, -0.5, 3.5, -25, -0.5, 3.5, -25, 0.5, 3.5, -25, 0.5, 3.5, 25, 0.5, 3.5, 25, 0.5, 3.5, -25, 0.5, -3.5, -25)
+
+[node name="TestMap" type="NavigationRegion3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_8hxfa")
+
+[node name="floor" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_tbv37")
+mesh = SubResource("PlaneMesh_efhdw")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_tbv37")
+
+[node name="paterols" parent="." instance=ExtResource("2_tfynl")]
+
+[node name="PatrolPoint1" parent="paterols" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.991661)
+
+[node name="PatrolPoint4" parent="paterols" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.437254, 0, 0)
+
+[node name="abd_Enemy" parent="." node_paths=PackedStringArray("patrol_points") instance=ExtResource("3_vk0xl")]
+patrol_points = [NodePath("../paterols/PatrolPoint1"), NodePath("../paterols/PatrolPoint2"), NodePath("../paterols/PatrolPoint3"), NodePath("../paterols/PatrolPoint4")]
+
+[node name="Player" parent="." node_paths=PackedStringArray("Total_enemies") instance=ExtResource("4_eciki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.802227, 0, 14.750639)
+Total_enemies = [NodePath("../abd_Enemy")]
+
+[node name="walls" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 3.5, 0)
+size = Vector3(1, 7, 50)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="walls/CSGBox3D"]
+
+[node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="walls/CSGBox3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_vk0xl")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="walls/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0308838, 12.337061)
+operation = 2
+size = Vector3(1, 4.8615723, 2.2418213)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25, 3.5, 0)
+size = Vector3(1, 7, 50)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="walls"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 3.5, 25)
+size = Vector3(1, 7, 50)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="walls"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 3.5, -25)
+size = Vector3(1, 7, 50)
+
+[node name="doors" type="Node3D" parent="."]
+
+[node name="door" parent="doors" instance=ExtResource("5_tfynl")]
+transform = Transform3D(-1.09278474e-07, 0, 2.5, 0, 2.5, 0, -2.5, 0, -1.09278474e-07, 24.987886, 3, 12.341324)
+
+[editable path="paterols"]

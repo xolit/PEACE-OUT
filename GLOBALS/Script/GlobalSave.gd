@@ -3,7 +3,10 @@ extends Node
 var FileLocation: String = "user://User_data.save" # Use .save for binary data
 
 var Contents_to_save: Dictionary = {
-	"platform": "PC",
+	"Music": true,
+	"AllVolume": 100.0,
+	"Sfx": true,
+	"Senstivity": 0.002
 }
 
 func _ready() -> void:

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://gid3d1idfkdm"]
+
+[node name="paterols" type="Node3D"]
+
+[node name="PatrolPoint1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -33.73144)
+
+[node name="PatrolPoint2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.02327, 0, 17.93954)
+
+[node name="PatrolPoint3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.620798, 0, 19.61407)
+
+[node name="PatrolPoint4" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.736835, 0, 0)

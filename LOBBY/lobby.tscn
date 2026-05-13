@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://ojledebb0kax"]
+[gd_scene load_steps=11 format=3 uid="uid://ojledebb0kax"]
 
 [ext_resource type="Script" uid="uid://dvrju07utyp0t" path="res://LOBBY/lobby.gd" id="1_ico0s"]
+[ext_resource type="Texture2D" uid="uid://beapesprnfthd" path="res://UI/play_btn.png" id="2_5jmve"]
+[ext_resource type="Script" uid="uid://t15ns45rmb3t" path="res://LOBBY/meshes_preloader.gd" id="2_8ox1p"]
+[ext_resource type="Texture2D" uid="uid://dog2eymlcql6m" path="res://UI/quit_btn.png" id="3_p37ir"]
+[ext_resource type="Texture2D" uid="uid://5p1ye3dr2e0b" path="res://UI/setting_btn.png" id="4_f3oky"]
+[ext_resource type="AudioStream" uid="uid://lguc162h7yj0" path="res://PLAYER/music/main_menu_horror.mp3" id="5_p37ir"]
+[ext_resource type="AudioStream" uid="uid://e6cbv8jlfyi7" path="res://PLAYER/music/Click_btn.mp3" id="6_axn5n"]
+[ext_resource type="AudioStream" uid="uid://datu0ncrpa50" path="res://PLAYER/music/Back_btn.mp3" id="7_8ox1p"]
+[ext_resource type="AudioStream" uid="uid://o3wfvpooknky" path="res://PLAYER/music/Pause_menu_toggle.mp3" id="8_kxrdw"]
+[ext_resource type="PackedScene" uid="uid://tka0shj4j7pj" path="res://LOBBY/settings/settings.tscn" id="10_jekgc"]
 
 [node name="Lobby" type="Control"]
 layout_mode = 3
@@ -11,6 +20,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ico0s")
 
+[node name="meshes_preloader" type="Node" parent="."]
+script = ExtResource("2_8ox1p")
+
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -20,73 +32,85 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.48212153, 0.3209841, 0.36906013, 1)
 
-[node name="MOBLIE_Check" type="CheckBox" parent="."]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 82.0
-offset_top = -15.0
-offset_right = 171.0
-offset_bottom = 16.0
-grow_vertical = 2
-theme_override_font_sizes/font_size = 40
-text = "MOBILE"
-
-[node name="PC_Check" type="CheckBox" parent="."]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 82.0
-offset_top = -103.0
-offset_right = 329.0
-offset_bottom = -40.0
-grow_vertical = 2
-theme_override_font_sizes/font_size = 40
-text = "COMPUTER"
-
-[node name="play" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -265.0
-offset_top = -161.0
-offset_right = -31.0
-offset_bottom = -31.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "PLAY"
-
-[node name="quit" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -539.0
-offset_top = -161.0
-offset_right = -303.0
-offset_bottom = -33.0
-grow_horizontal = 0
-grow_vertical = 0
-text = "QUIT"
-
-[node name="Label" type="Label" parent="."]
+[node name="game_name" type="Label" parent="ColorRect"]
 layout_mode = 0
-offset_left = 82.0
-offset_top = 78.0
-offset_right = 621.0
-offset_bottom = 148.0
-theme_override_font_sizes/font_size = 51
-text = "Choose Your Platform"
+offset_left = 60.0
+offset_top = 48.0
+offset_right = 577.0
+offset_bottom = 180.0
+theme_override_font_sizes/font_size = 96
+text = "PEACE OUT"
+horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="toggled" from="MOBLIE_Check" to="." method="_on_moblie_check_toggled"]
-[connection signal="toggled" from="PC_Check" to="." method="_on_pc_check_toggled"]
+[node name="play" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -194.0
+offset_top = -142.0
+offset_right = -14.0
+offset_bottom = 38.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("2_5jmve")
+
+[node name="quit" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -347.0
+offset_top = -142.0
+offset_right = -167.0
+offset_bottom = 38.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("3_p37ir")
+
+[node name="settings_btn" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -169.0
+offset_top = 58.0
+offset_right = 11.0
+offset_bottom = 238.0
+grow_horizontal = 0
+scale = Vector2(0.5, 0.5)
+texture_normal = ExtResource("4_f3oky")
+
+[node name="lobby_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_p37ir")
+autoplay = true
+bus = &"Music"
+
+[node name="click_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_axn5n")
+autoplay = true
+bus = &"Sfx"
+
+[node name="back_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_8ox1p")
+autoplay = true
+bus = &"Sfx"
+
+[node name="menu_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_kxrdw")
+autoplay = true
+bus = &"Sfx"
+
+[node name="settings" parent="." instance=ExtResource("10_jekgc")]
+layout_mode = 1
+
 [connection signal="pressed" from="play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="settings_btn" to="." method="_on_settings_btn_pressed"]
