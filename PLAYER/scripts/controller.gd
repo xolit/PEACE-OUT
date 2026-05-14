@@ -8,7 +8,7 @@ extends CharacterBody3D
 @export var acceleration: float = 10.0
 
 @export_group("Camera Settings")
-@export var mouse_sensitivity: float = 0.002
+@export var mouse_sensitivity: float = float(GlobalSave.Contents_to_save.get("Senstivity"))
 @export var smoothing_weight: float = 20.0
 
 @export_group("Total enemies map")
@@ -26,6 +26,7 @@ extends CharacterBody3D
 
 
 @onready var menu_exit_btn: TextureButton = $CanvasLayer/settings/menu
+@onready var settings_btn: TextureButton = $CanvasLayer/settings_btn
 
 
 
@@ -42,7 +43,7 @@ var _rotation_target: Vector3 = Vector3.ZERO
 var Health: float = 100.0
 
 func _ready() -> void:
-	menu_exit_btn.hide()
+	settings_btn.hide()
 	Input.set_use_accumulated_input(false)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
@@ -70,10 +71,10 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("esc"):
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-			menu_exit_btn.show()
+			settings_btn.show()
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-			menu_exit_btn.hide()
+			settings_btn.hide()
 			
 
 ## --- Logic Functions ---

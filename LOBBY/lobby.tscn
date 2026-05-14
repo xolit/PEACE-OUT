@@ -108,8 +108,11 @@ stream = ExtResource("8_kxrdw")
 autoplay = true
 bus = &"Sfx"
 
-[node name="settings" parent="." instance=ExtResource("10_jekgc")]
+[node name="settings" parent="." node_paths=PackedStringArray("lobby_sfx", "click_sfx", "back_sfx") instance=ExtResource("10_jekgc")]
 layout_mode = 1
+lobby_sfx = NodePath("../lobby_sfx")
+click_sfx = NodePath("../click_sfx")
+back_sfx = NodePath("../back_sfx")
 
 [connection signal="pressed" from="play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]

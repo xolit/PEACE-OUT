@@ -1,9 +1,9 @@
 extends Control
 
 #sounds
-@onready var lobby_sfx: AudioStreamPlayer = $"../lobby_sfx"
-@onready var click_sfx: AudioStreamPlayer = $"../click_sfx"
-@onready var back_sfx: AudioStreamPlayer = $"../back_sfx"
+@export var lobby_sfx: AudioStreamPlayer
+@export var click_sfx: AudioStreamPlayer
+@export var back_sfx: AudioStreamPlayer
 
 @onready var settings_ui: Control = $"."
 @onready var settings_btn: TextureButton = $"../settings_btn"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b7airxa0yw8sq"]
+[gd_scene load_steps=20 format=3 uid="uid://b7airxa0yw8sq"]
 
 [ext_resource type="Script" uid="uid://2gcn1n8ubplm" path="res://PLAYER/scripts/controller.gd" id="1_i10xq"]
 [ext_resource type="Texture2D" uid="uid://bqc2t2xj6jduu" path="res://UI/crosshair.png" id="2_d1135"]
@@ -9,6 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://tka0shj4j7pj" path="res://LOBBY/settings/settings.tscn" id="6_45mp0"]
 [ext_resource type="Script" uid="uid://cdbtetdv2o5r8" path="res://PLAYER/scripts/timer.gd" id="8_3bb6o"]
 [ext_resource type="AudioStream" uid="uid://co3fyalb2fb5v" path="res://PLAYER/music/running.mp3" id="8_45mp0"]
+[ext_resource type="AudioStream" uid="uid://e6cbv8jlfyi7" path="res://PLAYER/music/Click_btn.mp3" id="9_6hrs2"]
+[ext_resource type="AudioStream" uid="uid://datu0ncrpa50" path="res://PLAYER/music/Back_btn.mp3" id="10_7fthd"]
+[ext_resource type="AudioStream" uid="uid://lguc162h7yj0" path="res://PLAYER/music/main_menu_horror.mp3" id="11_wkdj7"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x3syo"]
 
@@ -92,9 +95,6 @@ script = ExtResource("2_gvfuq")
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="."]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1.5539373, 0)
 remote_path = NodePath("../CanvasLayer/SubViewportContainer/SubViewport/rear_cam_marker/back_cam")
-
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 2.056037, -0.6182437)
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7392824, 0)
@@ -281,7 +281,10 @@ grow_horizontal = 0
 scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("6_3bb6o")
 
-[node name="settings" parent="CanvasLayer" instance=ExtResource("6_45mp0")]
+[node name="settings" parent="CanvasLayer" node_paths=PackedStringArray("lobby_sfx", "click_sfx", "back_sfx") instance=ExtResource("6_45mp0")]
+lobby_sfx = NodePath("lobby")
+click_sfx = NodePath("click")
+back_sfx = NodePath("back")
 
 [node name="menu" type="TextureButton" parent="CanvasLayer/settings"]
 layout_mode = 1
@@ -295,6 +298,18 @@ offset_bottom = 67.0
 grow_vertical = 0
 scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("5_d1135")
+
+[node name="click" type="AudioStreamPlayer" parent="CanvasLayer/settings"]
+stream = ExtResource("9_6hrs2")
+bus = &"Sfx"
+
+[node name="back" type="AudioStreamPlayer" parent="CanvasLayer/settings"]
+stream = ExtResource("10_7fthd")
+bus = &"Sfx"
+
+[node name="lobby" type="AudioStreamPlayer" parent="CanvasLayer/settings"]
+stream = ExtResource("11_wkdj7")
+bus = &"Music"
 
 [node name="menu_ui" type="Control" parent="CanvasLayer"]
 visible = false
@@ -379,6 +394,7 @@ bus = &"Sfx"
 parameters/looping = true
 
 [connection signal="button_down" from="CanvasLayer/gameover/Button" to="." method="_on_button_button_down"]
-[connection signal="pressed" from="CanvasLayer/settings/menu" to="Menu_handler" method="_on_menu_pressed"]
-[connection signal="pressed" from="CanvasLayer/menu_ui/hbox/menu" to="Menu_handler" method="_on_go_to_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/settings_btn" to="Menu_handler" method="_on_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/settings/menu" to="Menu_handler" method="_on_go_to_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/menu_ui/hbox/menu" to="Menu_handler" method="_on_go_to_lobby_pressed"]
 [connection signal="pressed" from="CanvasLayer/menu_ui/hbox/cancel" to="Menu_handler" method="_on_cencel_pressed"]

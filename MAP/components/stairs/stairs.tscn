@@ -1,0 +1,180 @@
+[gd_scene load_steps=4 format=3 uid="uid://kq5ds5ef6nb"]
+
+[ext_resource type="Material" uid="uid://4prqlydkkmip" path="res://MAP/materials/stairs.tres" id="1_pr7kx"]
+[ext_resource type="Material" uid="uid://vk23flbt7jyl" path="res://MAP/materials/wall.tres" id="2_gmbj8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_gmbj8"]
+size = Vector3(1, 1, 1.215)
+
+[node name="stairs" type="Node3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="bottom2top" type="Node3D" parent="."]
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="bottom2top"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 14.062, 0, 0, -7.0891395)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="bottom2top"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 11.816, -0.051068068, 0.7834656, -8.362478)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="CSGMesh3D3" type="CSGMesh3D" parent="bottom2top"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 9.855944, -0.051068068, 1.5977306, -9.500532)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="CSGMesh3D4" type="CSGMesh3D" parent="bottom2top"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 8.1071825, -0.051068068, 2.375452, -10.480347)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="CSGMesh3D5" type="CSGMesh3D" parent="bottom2top"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 5.095391, 0, 3.2179809, -10.984335)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="CSGMesh3D6" type="CSGMesh3D" parent="bottom2top"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 4.2815485, -0.051068068, 4.0014467, -12.405792)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="CSGMesh3D7" type="CSGMesh3D" parent="bottom2top"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 3.5713186, -0.051068068, 4.8157115, -13.959463)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="CSGMesh3D8" type="CSGMesh3D" parent="bottom2top"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 2.9376519, -0.051068068, 5.593433, -14.980373)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="mid2top" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1.4905428, 0, 8.742278e-08, 0, -1, -13.073528, 6.410722, -15.413413)
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="mid2top"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 14.062, 0, 0, -7.0891395)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="mid2top"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 11.816, -0.051068068, 0.7834656, -8.362478)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="CSGMesh3D3" type="CSGMesh3D" parent="mid2top"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 9.855944, -0.051068068, 1.5977306, -9.500532)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="CSGMesh3D4" type="CSGMesh3D" parent="mid2top"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 8.1071825, -0.051068068, 2.375452, -10.480347)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="CSGMesh3D5" type="CSGMesh3D" parent="mid2top"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 5.095391, 0, 3.1166801, -10.984335)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="CSGMesh3D6" type="CSGMesh3D" parent="mid2top"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 4.2815485, -0.051068306, 3.900146, -12.405792)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="CSGMesh3D7" type="CSGMesh3D" parent="mid2top"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 3.5713186, -0.051068306, 4.7144113, -13.959463)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="CSGMesh3D8" type="CSGMesh3D" parent="mid2top"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 2.9376519, -0.051068306, 5.4921327, -14.980373)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="mid2top2" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1.4905428, 0, 8.742278e-08, 0, -1, 12.915609, 6.410722, -15.413413)
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="mid2top2"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 14.062, 0, 0, -7.0891395)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="mid2top2"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 11.816, -0.051068068, 0.7834656, -8.362478)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="CSGMesh3D3" type="CSGMesh3D" parent="mid2top2"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 9.855944, -0.051068068, 1.5977306, -9.500532)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="CSGMesh3D4" type="CSGMesh3D" parent="mid2top2"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 8.1071825, -0.051068068, 2.375452, -10.480347)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="CSGMesh3D5" type="CSGMesh3D" parent="mid2top2"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 5.095391, 0, 3.1166801, -10.984335)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="CSGMesh3D6" type="CSGMesh3D" parent="mid2top2"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 4.2815485, -0.051068306, 3.900146, -12.405792)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="CSGMesh3D7" type="CSGMesh3D" parent="mid2top2"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 3.5713186, -0.051068306, 4.7144113, -13.959463)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="CSGMesh3D8" type="CSGMesh3D" parent="mid2top2"]
+transform = Transform3D(11.936, 0, 0, 0, 0.8, 0, 0, 0, 2.9376519, -0.051068306, 5.4921327, -14.980373)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+mesh = SubResource("BoxMesh_gmbj8")
+
+[node name="stairs_path" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.074697495, 5.4843616, -23.199623)
+material_override = ExtResource("1_pr7kx")
+use_collision = true
+size = Vector3(38.041225, 1, 12.871582)
+
+[node name="wall1" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 7.54, 6.454, 13.8939085, -7.6604586)
+material_override = ExtResource("2_gmbj8")
+use_collision = true
+size = Vector3(1, 29.727, 2.413)
+
+[node name="wall2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 7.54, -6.5492697, 14.052386, -7.6604586)
+material_override = ExtResource("2_gmbj8")
+use_collision = true
+size = Vector3(1, 29.727234, 2.413)
