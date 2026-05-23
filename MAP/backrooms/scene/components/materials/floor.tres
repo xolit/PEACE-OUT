@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dfru8tv5ah8vb"]
+
+[ext_resource type="Texture2D" uid="uid://dv5sljxw10f0b" path="res://MAP/backrooms/scene/components/textures/pool_tiles_color.png" id="1_ivdb5"]
+
+[resource]
+albedo_color = Color(0.41984424, 0.43034935, 0.5374984, 1)
+albedo_texture = ExtResource("1_ivdb5")
+albedo_texture_force_srgb = true
+uv1_scale = Vector3(-0.115, -0.115, -0.115)
+uv1_triplanar = true

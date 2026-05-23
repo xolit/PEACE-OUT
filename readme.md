@@ -19,7 +19,7 @@
 
 <p align="center">
   <a href="https://github.com/xolit/PEACE-OUT">
-    <img src="https://img.shields.io/badge/View%20on-GitHub-black?style=for-the-badge&logo=github" />
+	<img src="https://img.shields.io/badge/View%20on-GitHub-black?style=for-the-badge&logo=github" />
   </a>
 </p>
 

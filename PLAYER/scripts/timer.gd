@@ -5,6 +5,7 @@ extends Node
 
 @export var start_minutes: int = 1
 @export var start_seconds: int = 30
+@onready var player: CharacterBody3D = $"../.."
 
 func _ready() -> void:
 	# Calculate total seconds and start the timer
@@ -29,4 +30,5 @@ func _process(_delta: float) -> void:
 
 func _on_timer_timeout() -> void:
 	print("GAMEOVER")
+	player._die()
 	# You can add code here to change scenes or stop the player

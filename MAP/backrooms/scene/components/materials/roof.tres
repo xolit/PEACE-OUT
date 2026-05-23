@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c1ehjax1lhx83"]
+
+[ext_resource type="Texture2D" uid="uid://biyc0n1ime57x" path="res://MAP/backrooms/scene/components/textures/ceiling_tiles_color.png" id="1_yxh4x"]
+
+[resource]
+albedo_texture = ExtResource("1_yxh4x")
+albedo_texture_force_srgb = true
+uv1_triplanar = true
+grow = true

@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://oqfnlcuj3t8"]
+
+[ext_resource type="Texture2D" uid="uid://b1ncssws7p6f8" path="res://MAP/backrooms/scene/components/textures/wallpaper_color.png" id="1_7thni"]
+
+[resource]
+albedo_texture = ExtResource("1_7thni")
+uv1_scale = Vector3(0.575, 0.575, 0.575)
+uv1_triplanar = true

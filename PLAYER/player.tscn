@@ -8,10 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://5p1ye3dr2e0b" path="res://UI/setting_btn.png" id="6_3bb6o"]
 [ext_resource type="PackedScene" uid="uid://tka0shj4j7pj" path="res://LOBBY/settings/settings.tscn" id="6_45mp0"]
 [ext_resource type="Script" uid="uid://cdbtetdv2o5r8" path="res://PLAYER/scripts/timer.gd" id="8_3bb6o"]
-[ext_resource type="AudioStream" uid="uid://co3fyalb2fb5v" path="res://PLAYER/music/running.mp3" id="8_45mp0"]
 [ext_resource type="AudioStream" uid="uid://e6cbv8jlfyi7" path="res://PLAYER/music/Click_btn.mp3" id="9_6hrs2"]
 [ext_resource type="AudioStream" uid="uid://datu0ncrpa50" path="res://PLAYER/music/Back_btn.mp3" id="10_7fthd"]
 [ext_resource type="AudioStream" uid="uid://lguc162h7yj0" path="res://PLAYER/music/main_menu_horror.mp3" id="11_wkdj7"]
+[ext_resource type="AudioStream" uid="uid://l6et3git7vwv" path="res://PLAYER/music/running_on_water.mp3" id="12_6hrs2"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x3syo"]
 
@@ -107,12 +107,6 @@ target_position = Vector3(0, -4, 0)
 
 [node name="hand" type="Node3D" parent="Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7482548, 0)
-
-[node name="SpotLight3D" type="SpotLight3D" parent="Head/hand"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.33191383, 0.10677695, 0)
-light_color = Color(1, 1, 0.93333334, 1)
-spot_range = 9.929
-spot_angle = 32.01
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.7, 0, 0, 0, 0.8, 0, 0, 0, 0.7, 0, 1, 0)
@@ -266,6 +260,7 @@ text = "00:00"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("8_3bb6o")
+start_minutes = 3
 
 [node name="Timer" type="Timer" parent="CanvasLayer/timer_label"]
 
@@ -387,8 +382,7 @@ libraries = {
 }
 
 [node name="run_sfx" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("8_45mp0")
-volume_db = 4.66
+stream = ExtResource("12_6hrs2")
 autoplay = true
 bus = &"Sfx"
 parameters/looping = true

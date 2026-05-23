@@ -29,7 +29,7 @@ extends CharacterBody3D
 @onready var settings_btn: TextureButton = $CanvasLayer/settings_btn
 
 
-
+var sound_tween: Tween
 @onready var menu_handler: Node = $Menu_handler
 
 # Sounds
@@ -122,16 +122,45 @@ func _handle_jump() -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
 
+#func _handle_sounds() -> void:
+	#var horizontal_velocity = Vector2(velocity.x, velocity.z).length()
+	#
+	#if is_on_floor() and horizontal_velocity > 0.1:
+		#if not run_sfx.playing:
+			#run_sfx.play()
+		#run_sfx.pitch_scale = 1.2 if _current_speed == sprint_speed else 1.0
+	#else:
+		#if run_sfx.playing:
+			#run_sfx.stop() 
+
 func _handle_sounds() -> void:
 	var horizontal_velocity = Vector2(velocity.x, velocity.z).length()
 	
 	if is_on_floor() and horizontal_velocity > 0.1:
 		if not run_sfx.playing:
+			# Kill any active fade-out tween
+			if sound_tween and sound_tween.is_running():
+				sound_tween.kill()
+				
+			run_sfx.volume_db = -40.0
 			run_sfx.play()
+			
+			sound_tween = create_tween()
+			sound_tween.tween_property(run_sfx, "volume_db", 0.0, 0.2)
+			
 		run_sfx.pitch_scale = 1.2 if _current_speed == sprint_speed else 1.0
 	else:
-		if run_sfx.playing:
-			run_sfx.stop()
+		if run_sfx.playing and (sound_tween == null or not sound_tween.is_running()):
+			# Kill any active fade-in tween
+			if sound_tween and sound_tween.is_running():
+				sound_tween.kill()
+				
+			sound_tween = create_tween()
+			# Fade to silent, then automatically stop the audio node
+			sound_tween.tween_property(run_sfx, "volume_db", -40.0, 0.2)
+			sound_tween.tween_callback(run_sfx.stop)
+
+
 
 func _handle_sprint() -> void:
 	var is_moving_forward = Input.get_vector("left", "right", "up", "down").y < -0.1
