@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b7airxa0yw8sq"]
+[gd_scene load_steps=27 format=3 uid="uid://b7airxa0yw8sq"]
 
 [ext_resource type="Script" uid="uid://2gcn1n8ubplm" path="res://PLAYER/scripts/controller.gd" id="1_i10xq"]
 [ext_resource type="Texture2D" uid="uid://bqc2t2xj6jduu" path="res://UI/crosshair.png" id="2_d1135"]
@@ -6,10 +6,14 @@
 [ext_resource type="AudioStream" uid="uid://comrd8oc51gbj" path="res://PLAYER/music/game-over.mp3" id="3_yrfig"]
 [ext_resource type="Texture2D" uid="uid://dvnh7epb4r21k" path="res://UI/exit_btn.png" id="5_d1135"]
 [ext_resource type="Texture2D" uid="uid://5p1ye3dr2e0b" path="res://UI/setting_btn.png" id="6_3bb6o"]
-[ext_resource type="PackedScene" uid="uid://tka0shj4j7pj" path="res://LOBBY/settings/settings.tscn" id="6_45mp0"]
+[ext_resource type="Script" uid="uid://eslmg5lq5w72" path="res://LOBBY/settings/settings.gd" id="7_688gd"]
 [ext_resource type="Script" uid="uid://cdbtetdv2o5r8" path="res://PLAYER/scripts/timer.gd" id="8_3bb6o"]
+[ext_resource type="Texture2D" uid="uid://60eyfsybvyp7" path="res://UI/settings-bg.png" id="8_7kt33"]
+[ext_resource type="Texture2D" uid="uid://dog2eymlcql6m" path="res://UI/quit_btn.png" id="9_2kxjs"]
 [ext_resource type="AudioStream" uid="uid://e6cbv8jlfyi7" path="res://PLAYER/music/Click_btn.mp3" id="9_6hrs2"]
 [ext_resource type="AudioStream" uid="uid://datu0ncrpa50" path="res://PLAYER/music/Back_btn.mp3" id="10_7fthd"]
+[ext_resource type="Texture2D" uid="uid://qjfuqhbacxwj" path="res://UI/off_toggle_btn.png" id="10_bnhob"]
+[ext_resource type="Texture2D" uid="uid://dl7axege7hp8f" path="res://UI/on_toggle_btn.png" id="11_r330y"]
 [ext_resource type="AudioStream" uid="uid://lguc162h7yj0" path="res://PLAYER/music/main_menu_horror.mp3" id="11_wkdj7"]
 [ext_resource type="AudioStream" uid="uid://l6et3git7vwv" path="res://PLAYER/music/running_on_water.mp3" id="12_6hrs2"]
 
@@ -23,6 +27,12 @@ bg_color = Color(0.7293705, 0.29888076, 0.22601503, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d1135"]
 bg_color = Color(0, 0.5137255, 0.20784314, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xm55d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k6puf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jekgc"]
 
 [sub_resource type="Animation" id="Animation_yrfig"]
 length = 0.001
@@ -276,10 +286,185 @@ grow_horizontal = 0
 scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("6_3bb6o")
 
-[node name="settings" parent="CanvasLayer" node_paths=PackedStringArray("lobby_sfx", "click_sfx", "back_sfx") instance=ExtResource("6_45mp0")]
+[node name="settings" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("lobby_sfx", "click_sfx", "back_sfx")]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 114.0
+offset_top = 69.0
+offset_right = -117.0
+offset_bottom = -73.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_688gd")
 lobby_sfx = NodePath("lobby")
 click_sfx = NodePath("click")
 back_sfx = NodePath("back")
+
+[node name="ColorRect" type="TextureRect" parent="CanvasLayer/settings"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.051000003
+anchor_top = -0.063
+anchor_right = 1.051
+anchor_bottom = 1.0630001
+offset_left = -50.029
+offset_top = -19.122
+offset_right = 47.02899
+offset_bottom = 19.121948
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_7kt33")
+
+[node name="save_btn" type="Button" parent="CanvasLayer/settings"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -88.5
+offset_top = -126.0
+offset_right = 86.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 61
+text = "Save"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/settings"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -386.5
+offset_top = -260.0
+offset_right = 386.5
+offset_bottom = 105.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/settings/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 39
+alignment = 1
+
+[node name="volume" type="HBoxContainer" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="vol_label" type="Label" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/volume"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 86
+text = "Volume:"
+horizontal_alignment = 2
+
+[node name="HSeparator2" type="VSeparator" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/volume"]
+layout_mode = 2
+theme_override_constants/separation = -31
+theme_override_styles/separator = SubResource("StyleBoxEmpty_xm55d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/volume"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="vol_Slider" type="HSlider" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/volume/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 100.0
+rounded = true
+
+[node name="vol_label" type="Label" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/volume/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "100%"
+
+[node name="Music" type="HBoxContainer" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="music" type="Label" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/Music"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 86
+text = "Music: "
+
+[node name="HSeparator" type="VSeparator" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/Music"]
+layout_mode = 2
+theme_override_constants/separation = 259
+theme_override_styles/separator = SubResource("StyleBoxEmpty_k6puf")
+
+[node name="ColorRect" type="TextureRect" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/Music"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("9_2kxjs")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="music_btn" type="TextureButton" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/Music"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("10_bnhob")
+texture_pressed = ExtResource("11_r330y")
+stretch_mode = 3
+
+[node name="sfx" type="HBoxContainer" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="sfx" type="Label" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/sfx"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 86
+text = "Sfx: "
+
+[node name="HSeparator2" type="VSeparator" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/sfx"]
+layout_mode = 2
+theme_override_constants/separation = 379
+theme_override_styles/separator = SubResource("StyleBoxEmpty_xm55d")
+
+[node name="sfx_btn" type="TextureButton" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/sfx"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("10_bnhob")
+texture_pressed = ExtResource("11_r330y")
+stretch_mode = 3
+
+[node name="Senstivity" type="HBoxContainer" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Senstivity" type="Label" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/Senstivity"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 86
+text = "Sens: "
+
+[node name="HSeparator2" type="VSeparator" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/Senstivity"]
+layout_mode = 2
+theme_override_constants/separation = 214
+theme_override_styles/separator = SubResource("StyleBoxEmpty_jekgc")
+
+[node name="input4sens" type="LineEdit" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/Senstivity"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 51
+text = "0.002"
+placeholder_text = "sens"
+alignment = 1
+max_length = 6
+context_menu_enabled = false
+emoji_menu_enabled = false
 
 [node name="menu" type="TextureButton" parent="CanvasLayer/settings"]
 layout_mode = 1
@@ -389,6 +574,10 @@ parameters/looping = true
 
 [connection signal="button_down" from="CanvasLayer/gameover/Button" to="." method="_on_button_button_down"]
 [connection signal="pressed" from="CanvasLayer/settings_btn" to="Menu_handler" method="_on_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/settings/save_btn" to="CanvasLayer/settings" method="_on_save_btn_pressed"]
+[connection signal="value_changed" from="CanvasLayer/settings/ScrollContainer/VBoxContainer/volume/VBoxContainer/vol_Slider" to="CanvasLayer/settings" method="_on_vol_slider_value_changed"]
+[connection signal="toggled" from="CanvasLayer/settings/ScrollContainer/VBoxContainer/Music/music_btn" to="CanvasLayer/settings" method="_on_music_btn_toggled"]
+[connection signal="toggled" from="CanvasLayer/settings/ScrollContainer/VBoxContainer/sfx/sfx_btn" to="CanvasLayer/settings" method="_on_sfx_btn_toggled"]
 [connection signal="pressed" from="CanvasLayer/settings/menu" to="Menu_handler" method="_on_go_to_menu_pressed"]
 [connection signal="pressed" from="CanvasLayer/menu_ui/hbox/menu" to="Menu_handler" method="_on_go_to_lobby_pressed"]
 [connection signal="pressed" from="CanvasLayer/menu_ui/hbox/cancel" to="Menu_handler" method="_on_cencel_pressed"]

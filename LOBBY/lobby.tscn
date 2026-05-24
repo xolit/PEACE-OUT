@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://ojledebb0kax"]
+[gd_scene load_steps=32 format=3 uid="uid://ojledebb0kax"]
 
 [ext_resource type="Script" uid="uid://dvrju07utyp0t" path="res://LOBBY/lobby.gd" id="1_ico0s"]
 [ext_resource type="Texture2D" uid="uid://beapesprnfthd" path="res://UI/play_btn.png" id="2_5jmve"]
 [ext_resource type="Script" uid="uid://t15ns45rmb3t" path="res://LOBBY/meshes_preloader.gd" id="2_8ox1p"]
+[ext_resource type="Script" uid="uid://brfi8dx350358" path="res://LOBBY/lobby_anim_handler.gd" id="2_xkt1r"]
 [ext_resource type="Texture2D" uid="uid://dog2eymlcql6m" path="res://UI/quit_btn.png" id="3_p37ir"]
 [ext_resource type="Texture2D" uid="uid://5p1ye3dr2e0b" path="res://UI/setting_btn.png" id="4_f3oky"]
 [ext_resource type="AudioStream" uid="uid://lguc162h7yj0" path="res://PLAYER/music/main_menu_horror.mp3" id="5_p37ir"]
@@ -10,6 +11,344 @@
 [ext_resource type="AudioStream" uid="uid://datu0ncrpa50" path="res://PLAYER/music/Back_btn.mp3" id="7_8ox1p"]
 [ext_resource type="AudioStream" uid="uid://o3wfvpooknky" path="res://PLAYER/music/Pause_menu_toggle.mp3" id="8_kxrdw"]
 [ext_resource type="PackedScene" uid="uid://tka0shj4j7pj" path="res://LOBBY/settings/settings.tscn" id="10_jekgc"]
+[ext_resource type="Material" uid="uid://c1ehjax1lhx83" path="res://MAP/backrooms/scene/components/materials/roof.tres" id="11_xkt1r"]
+[ext_resource type="Material" uid="uid://dfru8tv5ah8vb" path="res://MAP/backrooms/scene/components/materials/floor.tres" id="12_p2pwv"]
+[ext_resource type="Material" uid="uid://gk2tgsvi46yw" path="res://MAP/backrooms/scene/components/materials/water.tres" id="13_84vp8"]
+[ext_resource type="Script" uid="uid://b6lxhq1xu3yp4" path="res://MAP/backrooms/scripts/water.gd" id="14_54sn5"]
+[ext_resource type="PackedScene" uid="uid://bluv2vni0qbxn" path="res://MAP/backrooms/scene/components/wall/wall.tscn" id="15_uhwsj"]
+
+[sub_resource type="Animation" id="Animation_54sn5"]
+resource_name = "settings_on"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("settings:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2.9802322e-08, 0.6666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(114, -735), Vector2(114, 69)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("settings:visible")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_uhwsj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("settings:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(114, 69)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("settings:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_6qaeg"]
+resource_name = "settings_off"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("settings:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(114, 69), Vector2(114, -735)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("settings:visible")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.7),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6qaeg"]
+_data = {
+&"RESET": SubResource("Animation_uhwsj"),
+&"settings_off": SubResource("Animation_6qaeg"),
+&"settings_on": SubResource("Animation_54sn5")
+}
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0ooth"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_gsa2g"]
+sky_material = SubResource("ProceduralSkyMaterial_0ooth")
+
+[sub_resource type="Environment" id="Environment_crggl"]
+background_mode = 2
+sky = SubResource("Sky_gsa2g")
+tonemap_mode = 4
+tonemap_exposure = 0.9
+glow_enabled = true
+glow_bloom = 0.03
+fog_enabled = true
+fog_light_color = Color(0.3317244, 0.235996, 0.32505113, 1)
+fog_density = 0.0315
+
+[sub_resource type="BoxMesh" id="BoxMesh_pujc7"]
+size = Vector3(23, 1, 23)
+
+[sub_resource type="BoxMesh" id="BoxMesh_htcgw"]
+lightmap_size_hint = Vector2i(904, 461)
+size = Vector3(115, 0.5, 115)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gsa2g"]
+size = Vector2(115, 115)
+
+[sub_resource type="Animation" id="Animation_8ww1s"]
+resource_name = "lobby_cutscene"
+length = 7.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D/black_screen:visible")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.4666667, 5.733333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D/black_screen:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.3, 5.9333334, 7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera3D:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 3.102652, -46.637367)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Camera3D:rotation")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.061994076, 0), Vector3(0, -1.8284069, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xkt1r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D/black_screen:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D/black_screen:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 3.102652, -46.637367)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Camera3D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.061994076, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_p2pwv"]
+resource_name = "lobby_cutscene1"
+length = 7.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D/black_screen:visible")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.4666667, 5.733333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D/black_screen:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.3, 5.9333334, 7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera3D:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.3666667, 7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 3.102652, -18.630856), Vector3(44.206657, 3.102652, -18.630856)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Camera3D:rotation")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.3666667, 7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -0.30564108, 0), Vector3(0, -1.4442066, 0), Vector3(0, -1.4442066, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_84vp8"]
+resource_name = "lobby_cutscene2"
+length = 7.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D/black_screen:visible")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.0666666, 5.733333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D/black_screen:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.8666667, 5.9333334, 7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera3D:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.01, 4.5, 7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-50.4699, 3.102652, 13.110977), Vector3(-41.59314, 3.102652, 13.110977), Vector3(-32.5482, 3.102652, 13.110977), Vector3(-17.867168, 3.102652, 13.110977)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Camera3D:rotation")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2.01, 4.49, 7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -0.30564108, 0), Vector3(0, -1.4252, 0), Vector3(0, -0.90931565, 0), Vector3(0, -0.52920043, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xkt1r"]
+_data = {
+&"RESET": SubResource("Animation_xkt1r"),
+&"lobby_cutscene": SubResource("Animation_8ww1s"),
+&"lobby_cutscene1": SubResource("Animation_p2pwv"),
+&"lobby_cutscene2": SubResource("Animation_84vp8")
+}
 
 [node name="Lobby" type="Control"]
 layout_mode = 3
@@ -19,6 +358,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ico0s")
+
+[node name="lobby_anim_handler" type="Node" parent="."]
+script = ExtResource("2_xkt1r")
 
 [node name="meshes_preloader" type="Node" parent="."]
 script = ExtResource("2_8ox1p")
@@ -30,7 +372,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.48212153, 0.3209841, 0.36906013, 1)
+color = Color(0.48235294, 0.32156864, 0.36862746, 0)
 
 [node name="game_name" type="Label" parent="ColorRect"]
 layout_mode = 0
@@ -108,12 +450,249 @@ stream = ExtResource("8_kxrdw")
 autoplay = true
 bus = &"Sfx"
 
-[node name="settings" parent="." node_paths=PackedStringArray("lobby_sfx", "click_sfx", "back_sfx") instance=ExtResource("10_jekgc")]
+[node name="settings" parent="." node_paths=PackedStringArray("lobby_sfx", "click_sfx", "back_sfx", "ui_anim") instance=ExtResource("10_jekgc")]
+visible = false
 layout_mode = 1
 lobby_sfx = NodePath("../lobby_sfx")
 click_sfx = NodePath("../click_sfx")
 back_sfx = NodePath("../back_sfx")
+ui_anim = NodePath("../UIAnimation")
+is_lobby_setting = true
+
+[node name="UIAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_6qaeg")
+}
+
+[node name="3dLobby" type="Node3D" parent="."]
+
+[node name="backroom" type="Node3D" parent="3dLobby"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="3dLobby/backroom"]
+environment = SubResource("Environment_crggl")
+
+[node name="roof" type="CSGMesh3D" parent="3dLobby/backroom"]
+transform = Transform3D(5.2, 0, 0, 0, 1.25, 0, 0, 0, 5, 0, 8.634, 0)
+material_override = ExtResource("11_xkt1r")
+mesh = SubResource("BoxMesh_pujc7")
+
+[node name="floor" type="CSGMesh3D" parent="3dLobby/backroom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.23696697, 0)
+material_override = ExtResource("12_p2pwv")
+use_collision = true
+mesh = SubResource("BoxMesh_htcgw")
+
+[node name="water" type="MeshInstance3D" parent="3dLobby/backroom/floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40100098, 0)
+material_override = ExtResource("13_84vp8")
+mesh = SubResource("PlaneMesh_gsa2g")
+script = ExtResource("14_54sn5")
+water_material = ExtResource("13_84vp8")
+flow_speed = Vector2(0.02, -0.02)
+
+[node name="walls" type="Node3D" parent="3dLobby/backroom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5837021, 0, 29.920666)
+
+[node name="sidewalls" type="Node3D" parent="3dLobby/backroom/walls"]
+
+[node name="Wall" parent="3dLobby/backroom/walls/sidewalls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 6.3, -52.400204, 0, -29.552269)
+
+[node name="Wall2" parent="3dLobby/backroom/walls/sidewalls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 6.3, 57.591953, 0, -29.552269)
+
+[node name="Wall3" parent="3dLobby/backroom/walls/sidewalls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 6.645, 0, 1, 0, -1, 0, -2.9046217e-07, 2.4156895, 0, 24.18066)
+
+[node name="Wall4" parent="3dLobby/backroom/walls/sidewalls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 6.645, 0, 1, 0, -1, 0, -2.9046217e-07, 2.4156895, 0, -82.74849)
+
+[node name="z_walls" type="Node3D" parent="3dLobby/backroom/walls"]
+
+[node name="Wall" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.5, 48.53463, 0, -4.453668)
+
+[node name="Wall2" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, 48.53463, 0, -40.46478)
+
+[node name="Wall3" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, 48.53463, 0, -56.77943)
+
+[node name="Wall4" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.52, 38.201298, 0, -65.818115)
+
+[node name="Wall5" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.66, 18.744585, 0, -66.58133)
+
+[node name="Wall6" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, -22.105127, 0, -67.803024)
+
+[node name="Wall7" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, -38.881, 0, -50.331)
+
+[node name="Wall8" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.6, 8.406738, 0, -58.444557)
+
+[node name="Wall9" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, -1.9307194, 0, -39.871307)
+
+[node name="Wall10" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, -25.292248, 0, -31.955666)
+
+[node name="Wall11" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, 39.05854, 0, -31.955666)
+
+[node name="Wall12" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.52, 40.077396, 0, 12.692064)
+
+[node name="Wall13" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.05, 39.05854, 0, -8.2601)
+
+[node name="Wall14" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.506771, 0, 8.399134)
+
+[node name="Wall15" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, 17.362215, 0, 12.326151)
+
+[node name="Wall16" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.259636, 0, 16.345097)
+
+[node name="Wall17" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.6, -2.2939014, 0, 3.0510864)
+
+[node name="Wall18" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, -11.237854, 0, 3.4509945)
+
+[node name="Wall19" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, -38.881027, 0, 3.148816)
+
+[node name="Wall20" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, -38.881, 0, -23.398)
+
+[node name="Wall21" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, -11.903629, 0, -23.39779)
+
+[node name="Wall22" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.5, -2.4655056, 0, -23.39779)
+
+[node name="Wall23" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.7, -9.930353, 0, -77.47574)
+
+[node name="Wall24" parent="3dLobby/backroom/walls/z_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.7, 28.91368, 0, -77.47574)
+
+[node name="x_walls" type="Node3D" parent="3dLobby/backroom/walls"]
+
+[node name="Wall" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 0.6, 0, 1, 0, -1, 0, -2.6226834e-08, 52.615856, 0, 17.197636)
+
+[node name="Wall2" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 1.2, 0, 1, 0, -1, 0, -5.2453668e-08, 49.003044, 0, -27.43969)
+
+[node name="Wall3" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 0.5, 0, 1, 0, -1, 0, -2.1855694e-08, 44.0595, 0, 8.082206)
+
+[node name="Wall4" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 0.75, 0, 1, 0, -1, 0, -3.278354e-08, 33.66314, 0, 16.782322)
+
+[node name="Wall5" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 0.68, 0, 1, 0, -1, 0, -2.9723743e-08, 11.811953, 0, 7.8369293)
+
+[node name="Wall6" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 1.3, 0, 1, 0, -1, 0, -5.6824803e-08, -13.064588, 0, 16.469543)
+
+[node name="Wall7" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 0.8, 0, 1, 0, -1, 0, -3.4969112e-08, -45.41236, 0, 16.49626)
+
+[node name="Wall8" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 0.8, 0, 1, 0, -1, 0, -3.4969112e-08, -31.993, 0, 7.388)
+
+[node name="Wall9" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 0.82, 0, 1, 0, -1, 0, -3.584334e-08, -31.993, 0, -0.793)
+
+[node name="Wall10" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 1.25, 0, 1, 0, -1, 0, -5.4639237e-08, 17.148378, 0, -0.2744279)
+
+[node name="Wall11" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 1.82, 0, 1, 0, -1, 0, -7.955473e-08, 13.283382, 0, -10.22579)
+
+[node name="Wall12" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 2.45, 0, 1, 0, -1, 0, -1.070929e-07, -31.878824, 0, -10.22579)
+
+[node name="Wall13" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 2, 0, 1, 0, -1, 0, -8.742278e-08, 22.302114, 0, -17.413013)
+
+[node name="Wall14" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 1.8, 0, 1, 0, -1, 0, -7.86805e-08, 12.521206, 0, -27.698612)
+
+[node name="Wall15" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 2.5, 0, 1, 0, -1, 0, -1.09278474e-07, 6.4440384, 0, -35.61593)
+
+[node name="Wall16" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 0.82, 0, 1, 0, -1, 0, -3.584334e-08, -31.993385, 0, -19.387491)
+
+[node name="Wall17" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 0.82, 0, 1, 0, -1, 0, -3.584334e-08, -18.603989, 0, -27.74956)
+
+[node name="Wall18" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 0.8, 0, 1, 0, -1, 0, -3.4969112e-08, -45.41236, 0, -37.040573)
+
+[node name="Wall19" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 1.2, 0, 1, 0, -1, 0, -5.2453668e-08, -42.815315, 0, -71.88872)
+
+[node name="Wall20" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 1.7, 0, 1, 0, -1, 0, -7.430936e-08, -24.50302, 0, -63.33879)
+
+[node name="Wall21" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 1.7, 0, 1, 0, -1, 0, -7.430936e-08, -24.684626, 0, -46.0157)
+
+[node name="Wall22" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 1.7, 0, 1, 0, -1, 0, -7.430936e-08, -5.796008, 0, -53.547348)
+
+[node name="Wall23" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 0.65, 0, 1, 0, -1, 0, -2.8412401e-08, 3.154519, 0, -63.35049)
+
+[node name="Wall24" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 1.2, 0, 1, 0, -1, 0, -5.2453668e-08, 8.346207, 0, -71.91773)
+
+[node name="Wall25" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 2, 0, 1, 0, -1, 0, -8.742278e-08, 31.49683, 0, -44.45092)
+
+[node name="Wall26" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 2, 0, 1, 0, -1, 0, -8.742278e-08, 31.49683, 0, -52.77576)
+
+[node name="Wall27" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 0.64, 0, 1, 0, -1, 0, -2.7975288e-08, 43.37228, 0, -61.215034)
+
+[node name="Wall28" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 0.64, 0, 1, 0, -1, 0, -2.7975288e-08, 43.37228, 0, -70.00978)
+
+[node name="Wall29" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 0.64, 0, 1, 0, -1, 0, -2.7975288e-08, 24.377296, 0, -61.215034)
+
+[node name="Wall30" parent="3dLobby/backroom/walls/x_walls" instance=ExtResource("15_uhwsj")]
+transform = Transform3D(-4.371139e-08, 0, 0.64, 0, 1, 0, -1, 0, -2.7975288e-08, -33.6843, 0, -54.34275)
+
+[node name="Camera3D" type="Camera3D" parent="3dLobby/backroom"]
+transform = Transform3D(0.9980789, 0, -0.061954364, 0, 1, 0, 0.061954364, 0, 0.9980789, 0, 3.102652, -46.637367)
+
+[node name="black_screen" type="ColorRect" parent="3dLobby/backroom/Camera3D"]
+z_index = -2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="lobbyAnim" type="AnimationPlayer" parent="3dLobby/backroom"]
+libraries = {
+&"": SubResource("AnimationLibrary_xkt1r")
+}
+autoplay = "lobby_cutscene"
 
 [connection signal="pressed" from="play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="settings_btn" to="." method="_on_settings_btn_pressed"]
+[connection signal="animation_finished" from="3dLobby/backroom/lobbyAnim" to="lobby_anim_handler" method="_on_lobby_anim_animation_finished"]

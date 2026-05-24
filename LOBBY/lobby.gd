@@ -1,6 +1,6 @@
 extends Control
 
-@onready var settings: Control = $settings
+#@onready var settings: Control = $settings
 @onready var settings_btn: TextureButton = $settings_btn
 
 var data: Dictionary
@@ -10,6 +10,9 @@ var data: Dictionary
 @onready var back_sfx: AudioStreamPlayer = $back_sfx
 @onready var menu_sfx: AudioStreamPlayer = $menu_sfx
 @onready var lobby_sfx: AudioStreamPlayer = $lobby_sfx
+
+
+@onready var ui_animation: AnimationPlayer = $UIAnimation
 
 
 func _ready() -> void:
@@ -35,5 +38,7 @@ func _on_quit_pressed() -> void:
 func _on_settings_btn_pressed() -> void:
 	if data.get("Sfx", true):
 		menu_sfx.play()
-	settings.show()
+	#settings.show()
+	if not ui_animation.is_playing():
+		ui_animation.play("settings_on")
 	settings_btn.hide()

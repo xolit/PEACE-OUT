@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ch0frrrgqxb43"]
+[gd_scene load_steps=15 format=3 uid="uid://ch0frrrgqxb43"]
 
 [ext_resource type="Material" uid="uid://c1ehjax1lhx83" path="res://MAP/backrooms/scene/components/materials/roof.tres" id="1_htcgw"]
 [ext_resource type="Material" uid="uid://dfru8tv5ah8vb" path="res://MAP/backrooms/scene/components/materials/floor.tres" id="2_tve36"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://bluv2vni0qbxn" path="res://MAP/backrooms/scene/components/wall/wall.tscn" id="3_htcgw"]
 [ext_resource type="PackedScene" uid="uid://b7airxa0yw8sq" path="res://PLAYER/player.tscn" id="3_pujc7"]
 [ext_resource type="Script" uid="uid://b6lxhq1xu3yp4" path="res://MAP/backrooms/scripts/water.gd" id="4_gsa2g"]
-[ext_resource type="PackedScene" uid="uid://gid3d1idfkdm" path="res://MAP/components/paterols/paterols.tscn" id="7_gsa2g"]
 [ext_resource type="PackedScene" uid="uid://dibb22osy660l" path="res://ENEMY/abd_enemy.tscn" id="8_crggl"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0ooth"]
@@ -19,12 +18,13 @@ sky_material = SubResource("ProceduralSkyMaterial_0ooth")
 [sub_resource type="Environment" id="Environment_crggl"]
 background_mode = 2
 sky = SubResource("Sky_gsa2g")
-tonemap_mode = 3
+tonemap_mode = 4
 tonemap_exposure = 0.9
 glow_enabled = true
 glow_bloom = 0.03
 fog_enabled = true
-fog_light_color = Color(0.28235295, 0.3019608, 0.4, 1)
+fog_light_color = Color(0.3317244, 0.235996, 0.32505113, 1)
+fog_density = 0.0315
 
 [sub_resource type="BoxMesh" id="BoxMesh_pujc7"]
 size = Vector3(23, 1, 23)
@@ -251,24 +251,12 @@ transform = Transform3D(-4.371139e-08, 0, 0.64, 0, 1, 0, -1, 0, -2.7975288e-08, 
 transform = Transform3D(-4.371139e-08, 0, 0.64, 0, 1, 0, -1, 0, -2.7975288e-08, -33.6843, 0, -54.34275)
 
 [node name="Player" parent="." node_paths=PackedStringArray("Total_enemies") instance=ExtResource("3_pujc7")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 12.396912, 0, -49.15737)
+transform = Transform3D(-0.8528848, 0, -1.8090295, 0, 2, 0, 1.8090295, 0, -0.8528848, 12.396912, 0, -49.15737)
 walk_speed = 12.0
 sprint_speed = 19.0
 Total_enemies = [NodePath("../enemies/abd_Enemy"), NodePath("../enemies/abd_Enemy3")]
 
-[node name="paterols" parent="." instance=ExtResource("7_gsa2g")]
-
-[node name="PatrolPoint1" parent="paterols" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.41363, 0, -47.284973)
-
-[node name="PatrolPoint2" parent="paterols" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.2779, 0, 28.468174)
-
-[node name="PatrolPoint3" parent="paterols" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.260368, 0, 19.61407)
-
-[node name="PatrolPoint4" parent="paterols" index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.686714, 0, 0)
+[node name="paterols" type="Node3D" parent="."]
 
 [node name="PatrolPoint5" type="Node3D" parent="paterols"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38.686714, 0, 40.49991)
@@ -318,12 +306,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.920288, 0, -26.128101)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.81186, 0, -9.439394)
 speed = 12.0
 attack_range = 2.5
-patrol_points = [NodePath("../../paterols/PatrolPoint2"), NodePath("../../paterols/PatrolPoint2"), NodePath("../../paterols/PatrolPoint3"), NodePath("../../paterols/PatrolPoint4"), NodePath("../../paterols/PatrolPoint5"), NodePath("../../paterols/PatrolPoint6"), NodePath("../../paterols/PatrolPoint7"), NodePath("../../paterols/PatrolPoint8"), NodePath("../../paterols/PatrolPoint9"), NodePath("../../paterols/PatrolPoint10"), NodePath("../../paterols/PatrolPoint11"), NodePath("../../paterols/PatrolPoint12"), NodePath("../../paterols/PatrolPoint13"), NodePath("../../paterols/PatrolPoint14"), NodePath("../../paterols/PatrolPoint15"), NodePath("../../paterols/PatrolPoint16"), NodePath("../../paterols/PatrolPoint17"), NodePath("../../paterols/PatrolPoint18")]
+patrol_points = [NodePath("../../paterols/PatrolPoint5"), NodePath("../../paterols/PatrolPoint6"), NodePath("../../paterols/PatrolPoint7"), NodePath("../../paterols/PatrolPoint8"), NodePath("../../paterols/PatrolPoint9"), NodePath("../../paterols/PatrolPoint10"), NodePath("../../paterols/PatrolPoint11"), NodePath("../../paterols/PatrolPoint12"), NodePath("../../paterols/PatrolPoint13"), NodePath("../../paterols/PatrolPoint14"), NodePath("../../paterols/PatrolPoint15"), NodePath("../../paterols/PatrolPoint16"), NodePath("../../paterols/PatrolPoint17"), NodePath("../../paterols/PatrolPoint18")]
 
 [node name="abd_Enemy3" parent="enemies" node_paths=PackedStringArray("patrol_points") instance=ExtResource("8_crggl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.820023, 0, 45.749092)
 speed = 12.0
 attack_range = 2.5
-patrol_points = [NodePath("../../paterols/PatrolPoint2"), NodePath("../../paterols/PatrolPoint2"), NodePath("../../paterols/PatrolPoint3"), NodePath("../../paterols/PatrolPoint4"), NodePath("../../paterols/PatrolPoint5"), NodePath("../../paterols/PatrolPoint6"), NodePath("../../paterols/PatrolPoint7"), NodePath("../../paterols/PatrolPoint8"), NodePath("../../paterols/PatrolPoint9"), NodePath("../../paterols/PatrolPoint10"), NodePath("../../paterols/PatrolPoint11"), NodePath("../../paterols/PatrolPoint12"), NodePath("../../paterols/PatrolPoint13"), NodePath("../../paterols/PatrolPoint14"), NodePath("../../paterols/PatrolPoint15"), NodePath("../../paterols/PatrolPoint16"), NodePath("../../paterols/PatrolPoint17"), NodePath("../../paterols/PatrolPoint18")]
-
-[editable path="paterols"]
+patrol_points = [NodePath("../../paterols/PatrolPoint5"), NodePath("../../paterols/PatrolPoint6"), NodePath("../../paterols/PatrolPoint7"), NodePath("../../paterols/PatrolPoint8"), NodePath("../../paterols/PatrolPoint9"), NodePath("../../paterols/PatrolPoint10"), NodePath("../../paterols/PatrolPoint11"), NodePath("../../paterols/PatrolPoint12"), NodePath("../../paterols/PatrolPoint13"), NodePath("../../paterols/PatrolPoint14"), NodePath("../../paterols/PatrolPoint15"), NodePath("../../paterols/PatrolPoint16"), NodePath("../../paterols/PatrolPoint17"), NodePath("../../paterols/PatrolPoint18")]

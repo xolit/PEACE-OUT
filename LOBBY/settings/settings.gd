@@ -7,6 +7,7 @@ extends Control
 
 @onready var settings_ui: Control = $"."
 @onready var settings_btn: TextureButton = $"../settings_btn"
+@export var ui_anim: AnimationPlayer 
 
 #nodes
 @onready var input_4_sens: LineEdit = $ScrollContainer/VBoxContainer/Senstivity/input4sens
@@ -15,6 +16,7 @@ extends Control
 @onready var vol_slider: HSlider = $ScrollContainer/VBoxContainer/volume/VBoxContainer/vol_Slider
 @onready var vol_label: Label = $ScrollContainer/VBoxContainer/volume/VBoxContainer/vol_label
 
+@export var is_lobby_setting: bool
 var data: Dictionary
 
 func _ready() -> void:
@@ -26,8 +28,13 @@ func _on_save_btn_pressed() -> void:
 	if data.get("Sfx", true):
 		back_sfx.play()
 	settings_btn.show()
-	if settings_ui.visible:
+	if is_lobby_setting:
+		if not ui_anim.is_playing():
+			ui_anim.play("settings_off")
+	else:
 		settings_ui.hide()
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
 	defaul_setting_checker()
 	GlobalSave._save()
 
