@@ -1,0 +1,625 @@
+[gd_scene load_steps=12 format=3 uid="uid://dujgh3wborwko"]
+
+[ext_resource type="Script" uid="uid://dc7jabma1k45r" path="res://SPLASH/scripts/splash.gd" id="1_2ukp5"]
+[ext_resource type="FontFile" uid="uid://w24cmlggv6t7" path="res://GLOBALS/font/MontserratAlternates-Bold.otf" id="1_7t21s"]
+[ext_resource type="FontFile" uid="uid://c5dbetfqplyid" path="res://LOADING/fonts/Spooky And Dreadful Free.otf" id="2_d27fa"]
+[ext_resource type="Texture2D" uid="uid://dwrfepw55vryj" path="res://LOADING/texture/loading_scene.png" id="2_ggmhs"]
+[ext_resource type="Texture2D" uid="uid://dfimi5rd04nui" path="res://game_icon.png" id="3_yvuta"]
+[ext_resource type="Texture2D" uid="uid://b7yyo7kw4pmxs" path="res://SPLASH/imgs/splash_img_bg2.png" id="6_2ukp5"]
+
+[sub_resource type="FontVariation" id="FontVariation_quc8b"]
+base_font = ExtResource("1_7t21s")
+
+[sub_resource type="FontVariation" id="FontVariation_ggmhs"]
+base_font = ExtResource("2_d27fa")
+
+[sub_resource type="Animation" id="Animation_quc8b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bg:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("bg/Label:modulate:r")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("bg/Label:modulate:g")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("bg/Label:modulate:b")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("bg/Label:modulate:a")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("bg/Label:theme_override_font_sizes/font_size")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(116, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("bg/Control/game_name:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("bg/Control/gam_logo:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "bezier"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("bg/Control/gam_logo:modulate:r")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/9/type = "bezier"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("bg/Control/gam_logo:modulate:g")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/10/type = "bezier"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("bg/Control/gam_logo:modulate:b")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/11/type = "bezier"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("bg/Control/gam_logo:modulate:a")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/12/type = "bezier"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("bg/Control/game_name:modulate:r")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/13/type = "bezier"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("bg/Control/game_name:modulate:g")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/14/type = "bezier"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("bg/Control/game_name:modulate:b")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/15/type = "bezier"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("bg/Control/game_name:modulate:a")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("bg/game_texture_bg:visible")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/17/type = "bezier"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("bg/game_texture_bg:modulate:r")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/18/type = "bezier"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("bg/game_texture_bg:modulate:g")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/19/type = "bezier"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("bg/game_texture_bg:modulate:b")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/20/type = "bezier"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("bg/game_texture_bg:modulate:a")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("bg/game_texture_bg:texture")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_ggmhs")]
+}
+
+[sub_resource type="Animation" id="Animation_7t21s"]
+resource_name = "splash_scene"
+length = 18.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bg:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.51),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("bg/Label:modulate:r")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.16666667, 0, 0, 0, 1, -0.17, 0, 0, 0, 1, -0.20833337, 0, 0, 0),
+"times": PackedFloat32Array(1.24, 2.24, 3.26, 4.51)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("bg/Label:modulate:g")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.16666667, 0, 0, 0, 1, -0.17, 0, 0, 0, 1, -0.20833337, 0, 0, 0),
+"times": PackedFloat32Array(1.24, 2.24, 3.26, 4.51)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("bg/Label:modulate:b")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.16666667, 0, 0, 0, 1, -0.17, 0, 0, 0, 1, -0.20833337, 0, 0, 0),
+"times": PackedFloat32Array(1.24, 2.24, 3.26, 4.51)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("bg/Label:modulate:a")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 2, 2, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.16666667, -0.16666667, 0, 0, 1, -0.17, 0, 0, 0, 0, -0.20833337, 0.16666666, 0, 0),
+"times": PackedFloat32Array(1.24, 2.24, 3.26, 4.51)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("bg/Label:theme_override_font_sizes/font_size")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(16, 0, 0, 0.165, 16.666668, 98.5, -0.0333333, -66, 0.25, 0),
+"times": PackedFloat32Array(1.5166667, 1.9)
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("bg/Control/game_name:visible")
+tracks/6/interp = 2
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 6.6284337),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("bg/Control/gam_logo:visible")
+tracks/7/interp = 2
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 4.6666665),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/8/type = "bezier"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("bg/Control/gam_logo:modulate:r")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.32166672, 0, 0, 0, 1, -0.32166672, 0, 0, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(4.5884337, 5.5333333, 6.233333, 7.266667)
+}
+tracks/9/type = "bezier"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("bg/Control/gam_logo:modulate:g")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.32166672, 0, 0, 0, 1, -0.32166672, 0, 0, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(4.5884337, 5.5333333, 6.233333, 7.266667)
+}
+tracks/10/type = "bezier"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("bg/Control/gam_logo:modulate:b")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.32166672, 0, 0, 0, 1, -0.32166672, 0, 0, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(4.5884337, 5.5333333, 6.233333, 7.266667)
+}
+tracks/11/type = "bezier"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("bg/Control/gam_logo:modulate:a")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.32166672, -0.16666667, 0, 0, 1, -0.32166672, -0.16666667, 0, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(4.5884337, 5.5333333, 6.233333, 7.266667)
+}
+tracks/12/type = "bezier"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("bg/Control/game_name:modulate:r")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"handle_modes": PackedInt32Array(0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.2633334, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 0.646029, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 0.646029, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 0.646029, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 0.646029, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 0.646029, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 0.646029, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 0.646029, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084506035, 0, 0, 0, 1, -0.1624686, 0, 0, 0),
+"times": PackedFloat32Array(7.9199996, 9.5, 10.006747, 10.231566, 10.491567, 11.033334, 11.258153, 11.518153, 12, 12.224819, 12.484819, 13.008514, 13.233334, 13.493334, 14, 14.224819, 14.484819, 15, 15.224819, 15.484819, 16.033333, 16.258152, 16.518152, 17.025188, 18)
+}
+tracks/13/type = "bezier"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("bg/Control/game_name:modulate:g")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"handle_modes": PackedInt32Array(0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.2633334, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 0.646029, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 0.646029, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 0.646029, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 0.646029, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 0.646029, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 0.646029, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 0.646029, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084506035, 0, 0, 0, 1, -0.1624686, 0, 0, 0),
+"times": PackedFloat32Array(7.9199996, 9.5, 10.006747, 10.231566, 10.491567, 11.033334, 11.258153, 11.518153, 12, 12.224819, 12.484819, 13.008514, 13.233334, 13.493334, 14, 14.224819, 14.484819, 15, 15.224819, 15.484819, 16.033333, 16.258152, 16.518152, 17.025188, 18)
+}
+tracks/14/type = "bezier"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("bg/Control/game_name:modulate:b")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"handle_modes": PackedInt32Array(0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.2633334, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 0.646029, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 0.646029, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 0.646029, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 0.646029, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 0.646029, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 0.646029, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 0.646029, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084506035, 0, 0, 0, 1, -0.1624686, 0, 0, 0),
+"times": PackedFloat32Array(7.9199996, 9.5, 10.006747, 10.231566, 10.491567, 11.033334, 11.258153, 11.518153, 12, 12.224819, 12.484819, 13.008514, 13.233334, 13.493334, 14, 14.224819, 14.484819, 15, 15.224819, 15.484819, 16.033333, 16.258152, 16.518152, 17.025188, 18)
+}
+tracks/15/type = "bezier"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("bg/Control/game_name:modulate:a")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"handle_modes": PackedInt32Array(0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.2633334, -0.16666667, 0, 0, 1, -0.084457874, 0, 0, 0, 1, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 1, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 1, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 1, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 1, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 1, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084457874, 0, 0, 0, 1, -0.037469864, 0, 0.043333374, 0, 1, -0.08080324, 0, 0, 0, 1, -0.084506035, 0, 0, 0, 0, -0.1624686, 0.16666667, 0, 0),
+"times": PackedFloat32Array(7.9199996, 9.5, 10.006747, 10.231566, 10.491567, 11.033334, 11.258153, 11.518153, 12, 12.224819, 12.484819, 13.008514, 13.233334, 13.493334, 14, 14.224819, 14.484819, 15, 15.224819, 15.484819, 16.033333, 16.258152, 16.518152, 17.025188, 18)
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("bg/game_texture_bg:visible")
+tracks/16/interp = 2
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0, 9.600602, 16.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/17/type = "bezier"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("bg/game_texture_bg:modulate:r")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 2, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0.32544088, -0.38152617, 0, 0.020140648, 0, 0.3245714, -0.33188757, 0.00014491379, 0, 0, 0.3245714, -0.10048183, 0, 0, 0, 0.3245714, -0.25, 0, 0, 0, 0.3245714, -0.2500803, 0, 0, 0),
+"times": PackedFloat32Array(9.600602, 11, 11.9, 12.502891, 14.5, 16.533333)
+}
+tracks/18/type = "bezier"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath("bg/game_texture_bg:modulate:g")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 2, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0.3254409, -0.38152617, 0, 0.020140648, 0, 0.3245714, -0.33188757, 0.00014491875, 0, 0, 0.3245714, -0.10048183, 0, 0, 0, 0.3245714, -0.25, 0, 0, 0, 0.3245714, -0.2500803, 0, 0, 0),
+"times": PackedFloat32Array(9.600602, 11, 11.9, 12.502891, 14.5, 16.533333)
+}
+tracks/19/type = "bezier"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("bg/game_texture_bg:modulate:b")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 2, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0.32544088, -0.38152617, 0, 0.020140648, 0, 0.3245714, -0.33188757, 0.00014491379, 0, 0, 0.3245714, -0.10048183, 0, 0, 0, 0.3245714, -0.25, 0, 0, 0, 0.3245714, -0.2500803, 0, 0, 0),
+"times": PackedFloat32Array(9.600602, 11, 11.9, 12.502891, 14.5, 16.533333)
+}
+tracks/20/type = "bezier"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("bg/game_texture_bg:modulate:a")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 2, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.9490196, -0.38152617, -0.15830956, 0.020140648, 0.008357112, 0, -0.33188757, 0.15816994, 0, 0, 0, -0.10048183, 0, 0, 0, 1, -0.25, -0.16666667, 0, 0, 0, -0.2500803, 0.16666669, 0, 0),
+"times": PackedFloat32Array(9.600602, 11, 11.9, 12.502891, 14.5, 16.533333)
+}
+tracks/21/type = "value"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("bg/game_texture_bg:texture")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(9.448675, 12.017229),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_ggmhs"), ExtResource("6_2ukp5")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_quc8b"]
+_data = {
+&"RESET": SubResource("Animation_quc8b"),
+&"splash_scene": SubResource("Animation_7t21s")
+}
+
+[node name="SplashScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2ukp5")
+
+[node name="bg" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="bg"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -242.0
+offset_top = -79.75006
+offset_right = 242.0
+offset_bottom = 79.75006
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = SubResource("FontVariation_quc8b")
+theme_override_font_sizes/font_size = 116
+text = "GoGame"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="game_texture_bg" type="TextureRect" parent="bg"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ggmhs")
+
+[node name="Control" type="Control" parent="bg"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="gam_logo" type="TextureRect" parent="bg/Control"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.00015
+offset_top = -90.00011
+offset_right = 90.00015
+offset_bottom = 90.00011
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_yvuta")
+
+[node name="game_name" type="Label" parent="bg/Control"]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -236.5
+offset_top = -110.5
+offset_right = 236.5
+offset_bottom = 110.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = SubResource("FontVariation_ggmhs")
+theme_override_font_sizes/font_size = 116
+text = "Peace Out"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_quc8b")
+}
+autoplay = "splash_scene"
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

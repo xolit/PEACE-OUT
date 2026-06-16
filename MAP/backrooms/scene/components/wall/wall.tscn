@@ -1,14 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://bluv2vni0qbxn"]
+[gd_scene load_steps=4 format=3 uid="uid://bluv2vni0qbxn"]
 
 [ext_resource type="Material" uid="uid://oqfnlcuj3t8" path="res://MAP/backrooms/scene/components/materials/wall.tres" id="1_4h1in"]
+[ext_resource type="Script" uid="uid://plwkn26e4s0t" path="res://MAP/backrooms/scene/components/wall/wall.gd" id="1_bka2n"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_6awum"]
 size = Vector3(0.5, 8, 17)
 
 [node name="Wall" type="Node3D"]
+script = ExtResource("1_bka2n")
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 material_override = ExtResource("1_4h1in")
 use_collision = true
 mesh = SubResource("BoxMesh_6awum")
+material = ExtResource("1_4h1in")

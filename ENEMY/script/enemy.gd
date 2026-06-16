@@ -132,3 +132,10 @@ func _move_to_next_point(delta: float) -> void:
 	if direction.length() > 0.1:
 		var target_rot = atan2(direction.x, direction.z)
 		rotation.y = lerp_angle(rotation.y, target_rot, rotation_speed * delta)
+
+
+func _on_audio_stream_player_3d_finished() -> void:
+	if GlobalSave.Contents_to_save["Sfx"] and audio_stream_player_3d.playing:
+		pass
+	else:
+		audio_stream_player_3d.stop()

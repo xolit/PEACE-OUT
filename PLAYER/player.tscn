@@ -1,21 +1,17 @@
-[gd_scene load_steps=27 format=3 uid="uid://b7airxa0yw8sq"]
+[gd_scene load_steps=20 format=3 uid="uid://b7airxa0yw8sq"]
 
 [ext_resource type="Script" uid="uid://2gcn1n8ubplm" path="res://PLAYER/scripts/controller.gd" id="1_i10xq"]
+[ext_resource type="Script" uid="uid://dkhoksvk17mfc" path="res://PLAYER/scripts/game_states.gd" id="2_bnhob"]
 [ext_resource type="Texture2D" uid="uid://bqc2t2xj6jduu" path="res://UI/crosshair.png" id="2_d1135"]
 [ext_resource type="Script" uid="uid://ve35dtba5c3j" path="res://PLAYER/scripts/menu_handler.gd" id="2_gvfuq"]
 [ext_resource type="AudioStream" uid="uid://comrd8oc51gbj" path="res://PLAYER/music/game-over.mp3" id="3_yrfig"]
+[ext_resource type="PackedScene" uid="uid://edl51uu1y518" path="res://BOOK/book.tscn" id="4_6hrs2"]
 [ext_resource type="Texture2D" uid="uid://dvnh7epb4r21k" path="res://UI/exit_btn.png" id="5_d1135"]
 [ext_resource type="Texture2D" uid="uid://5p1ye3dr2e0b" path="res://UI/setting_btn.png" id="6_3bb6o"]
-[ext_resource type="Script" uid="uid://eslmg5lq5w72" path="res://LOBBY/settings/settings.gd" id="7_688gd"]
 [ext_resource type="Script" uid="uid://cdbtetdv2o5r8" path="res://PLAYER/scripts/timer.gd" id="8_3bb6o"]
-[ext_resource type="Texture2D" uid="uid://60eyfsybvyp7" path="res://UI/settings-bg.png" id="8_7kt33"]
-[ext_resource type="Texture2D" uid="uid://dog2eymlcql6m" path="res://UI/quit_btn.png" id="9_2kxjs"]
-[ext_resource type="AudioStream" uid="uid://e6cbv8jlfyi7" path="res://PLAYER/music/Click_btn.mp3" id="9_6hrs2"]
-[ext_resource type="AudioStream" uid="uid://datu0ncrpa50" path="res://PLAYER/music/Back_btn.mp3" id="10_7fthd"]
-[ext_resource type="Texture2D" uid="uid://qjfuqhbacxwj" path="res://UI/off_toggle_btn.png" id="10_bnhob"]
-[ext_resource type="Texture2D" uid="uid://dl7axege7hp8f" path="res://UI/on_toggle_btn.png" id="11_r330y"]
-[ext_resource type="AudioStream" uid="uid://lguc162h7yj0" path="res://PLAYER/music/main_menu_horror.mp3" id="11_wkdj7"]
+[ext_resource type="StyleBox" uid="uid://0hewylush2ki" path="res://GLOBALS/btns_normal.tres" id="9_bnhob"]
 [ext_resource type="AudioStream" uid="uid://l6et3git7vwv" path="res://PLAYER/music/running_on_water.mp3" id="12_6hrs2"]
+[ext_resource type="Texture2D" uid="uid://r6i4tat4c31l" path="res://UI/exit_to_lobby.png" id="16_7kt33"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x3syo"]
 
@@ -24,15 +20,17 @@ points = PackedVector3Array(-0.12520654, -0.532801, -0.4805069, 0.022783129, 0.4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gvfuq"]
 bg_color = Color(0.7293705, 0.29888076, 0.22601503, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d1135"]
 bg_color = Color(0, 0.5137255, 0.20784314, 1)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xm55d"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k6puf"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jekgc"]
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
 
 [sub_resource type="Animation" id="Animation_yrfig"]
 length = 0.001
@@ -99,12 +97,15 @@ process_mode = 1
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 script = ExtResource("1_i10xq")
 
+[node name="game_states" type="Node" parent="."]
+script = ExtResource("2_bnhob")
+
 [node name="Menu_handler" type="Node" parent="."]
 script = ExtResource("2_gvfuq")
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="."]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 1.5539373, 0)
-remote_path = NodePath("../CanvasLayer/SubViewportContainer/SubViewport/rear_cam_marker/back_cam")
+remote_path = NodePath("../CanvasLayer/back_cam/SubViewport/rear_cam_marker/back_cam")
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7392824, 0)
@@ -115,8 +116,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7392824, 0)
 transform = Transform3D(1.9106855e-15, 4.3711385e-08, 2, 1, -4.3711385e-08, 0, 4.371139e-08, 0.99999994, -8.742278e-08, 0, 0, 0)
 target_position = Vector3(0, -4, 0)
 
-[node name="hand" type="Node3D" parent="Head"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7482548, 0)
+[node name="hand" type="Node3D" parent="Head/Camera3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -1.4965096, 0)
+
+[node name="right" type="Node3D" parent="Head/Camera3D/hand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20302668, 0.3947096, -0.304295)
+
+[node name="book" parent="Head/Camera3D/hand/right" instance=ExtResource("4_6hrs2")]
+transform = Transform3D(1, 0, 0, 0, 0.9999998, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="left" type="Node3D" parent="Head/Camera3D/hand"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.7, 0, 0, 0, 0.8, 0, 0, 0, 0.7, 0, 1, 0)
@@ -205,9 +214,10 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 259.0
-offset_top = -68.0
-offset_right = -228.0
+offset_left = 258.0
+offset_top = -81.0
+offset_right = -229.0
+offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/background = SubResource("StyleBoxFlat_gvfuq")
@@ -233,19 +243,19 @@ text = "Door"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="CanvasLayer"]
+[node name="back_cam" type="SubViewportContainer" parent="CanvasLayer"]
 offset_right = 239.0
 offset_bottom = 202.0
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="CanvasLayer/back_cam"]
 handle_input_locally = false
 size = Vector2i(239, 202)
 render_target_update_mode = 4
 
-[node name="rear_cam_marker" type="Marker3D" parent="CanvasLayer/SubViewportContainer/SubViewport"]
+[node name="rear_cam_marker" type="Marker3D" parent="CanvasLayer/back_cam/SubViewport"]
 
-[node name="back_cam" type="Camera3D" parent="CanvasLayer/SubViewportContainer/SubViewport/rear_cam_marker"]
+[node name="back_cam" type="Camera3D" parent="CanvasLayer/back_cam/SubViewport/rear_cam_marker"]
 transform = Transform3D(-2, 0, 1.7484555e-07, 0, 2, 0, -1.7484555e-07, 0, -2, 0, 3.1078746, 0)
 
 [node name="damage_Rect" type="ColorRect" parent="CanvasLayer"]
@@ -258,23 +268,23 @@ grow_vertical = 2
 color = Color(0.38039216, 0.09411765, 0.12941177, 0.16470589)
 
 [node name="timer_label" type="Label" parent="CanvasLayer"]
-anchors_preset = -1
-anchor_left = 0.216
-anchor_right = 0.216
-offset_left = 6.1679993
-offset_top = 4.0
-offset_right = 226.168
-offset_bottom = 122.0
-theme_override_font_sizes/font_size = 86
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -110.0
+offset_right = 110.0
+offset_bottom = 77.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 56
 text = "00:00"
 horizontal_alignment = 1
-vertical_alignment = 1
 script = ExtResource("8_3bb6o")
 start_minutes = 3
 
 [node name="Timer" type="Timer" parent="CanvasLayer/timer_label"]
 
 [node name="settings_btn" type="TextureButton" parent="CanvasLayer"]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -286,210 +296,18 @@ grow_horizontal = 0
 scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("6_3bb6o")
 
-[node name="settings" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("lobby_sfx", "click_sfx", "back_sfx")]
+[node name="menu" type="TextureButton" parent="CanvasLayer"]
 visible = false
-layout_mode = 3
-anchors_preset = 15
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 114.0
-offset_top = 69.0
-offset_right = -117.0
-offset_bottom = -73.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("7_688gd")
-lobby_sfx = NodePath("lobby")
-click_sfx = NodePath("click")
-back_sfx = NodePath("back")
-
-[node name="ColorRect" type="TextureRect" parent="CanvasLayer/settings"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.051000003
-anchor_top = -0.063
-anchor_right = 1.051
-anchor_bottom = 1.0630001
-offset_left = -50.029
-offset_top = -19.122
-offset_right = 47.02899
-offset_bottom = 19.121948
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("8_7kt33")
-
-[node name="save_btn" type="Button" parent="CanvasLayer/settings"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -88.5
-offset_top = -126.0
-offset_right = 86.0
-offset_bottom = -21.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 61
-text = "Save"
-
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/settings"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -386.5
-offset_top = -260.0
-offset_right = 386.5
-offset_bottom = 105.0
-grow_horizontal = 2
-grow_vertical = 2
-horizontal_scroll_mode = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/settings/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 39
-alignment = 1
-
-[node name="volume" type="HBoxContainer" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-alignment = 1
-
-[node name="vol_label" type="Label" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/volume"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 86
-text = "Volume:"
-horizontal_alignment = 2
-
-[node name="HSeparator2" type="VSeparator" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/volume"]
-layout_mode = 2
-theme_override_constants/separation = -31
-theme_override_styles/separator = SubResource("StyleBoxEmpty_xm55d")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/volume"]
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 1
-
-[node name="vol_Slider" type="HSlider" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/volume/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-value = 100.0
-rounded = true
-
-[node name="vol_label" type="Label" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/volume/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "100%"
-
-[node name="Music" type="HBoxContainer" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-alignment = 1
-
-[node name="music" type="Label" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/Music"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 86
-text = "Music: "
-
-[node name="HSeparator" type="VSeparator" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/Music"]
-layout_mode = 2
-theme_override_constants/separation = 259
-theme_override_styles/separator = SubResource("StyleBoxEmpty_k6puf")
-
-[node name="ColorRect" type="TextureRect" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/Music"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("9_2kxjs")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="music_btn" type="TextureButton" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/Music"]
-layout_mode = 2
-toggle_mode = true
-texture_normal = ExtResource("10_bnhob")
-texture_pressed = ExtResource("11_r330y")
-stretch_mode = 3
-
-[node name="sfx" type="HBoxContainer" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-alignment = 1
-
-[node name="sfx" type="Label" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/sfx"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 86
-text = "Sfx: "
-
-[node name="HSeparator2" type="VSeparator" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/sfx"]
-layout_mode = 2
-theme_override_constants/separation = 379
-theme_override_styles/separator = SubResource("StyleBoxEmpty_xm55d")
-
-[node name="sfx_btn" type="TextureButton" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/sfx"]
-layout_mode = 2
-toggle_mode = true
-texture_normal = ExtResource("10_bnhob")
-texture_pressed = ExtResource("11_r330y")
-stretch_mode = 3
-
-[node name="Senstivity" type="HBoxContainer" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-alignment = 1
-
-[node name="Senstivity" type="Label" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/Senstivity"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 86
-text = "Sens: "
-
-[node name="HSeparator2" type="VSeparator" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/Senstivity"]
-layout_mode = 2
-theme_override_constants/separation = 214
-theme_override_styles/separator = SubResource("StyleBoxEmpty_jekgc")
-
-[node name="input4sens" type="LineEdit" parent="CanvasLayer/settings/ScrollContainer/VBoxContainer/Senstivity"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 51
-text = "0.002"
-placeholder_text = "sens"
-alignment = 1
-max_length = 6
-context_menu_enabled = false
-emoji_menu_enabled = false
-
-[node name="menu" type="TextureButton" parent="CanvasLayer/settings"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 804.0
-offset_top = -113.0
-offset_right = 984.0
-offset_bottom = 67.0
-grow_vertical = 0
+offset_left = -122.0
+offset_top = 23.0
+offset_right = 58.0
+offset_bottom = 203.0
+grow_horizontal = 0
 scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("5_d1135")
-
-[node name="click" type="AudioStreamPlayer" parent="CanvasLayer/settings"]
-stream = ExtResource("9_6hrs2")
-bus = &"Sfx"
-
-[node name="back" type="AudioStreamPlayer" parent="CanvasLayer/settings"]
-stream = ExtResource("10_7fthd")
-bus = &"Sfx"
-
-[node name="lobby" type="AudioStreamPlayer" parent="CanvasLayer/settings"]
-stream = ExtResource("11_wkdj7")
-bus = &"Music"
 
 [node name="menu_ui" type="Control" parent="CanvasLayer"]
 visible = false
@@ -497,33 +315,38 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 239.0
-offset_top = 122.0
-offset_right = -220.0
-offset_bottom = -130.0
+offset_left = 284.0
+offset_top = 154.0
+offset_right = -247.0
+offset_bottom = -158.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/menu_ui"]
+[node name="ColorRect" type="TextureRect" parent="CanvasLayer/menu_ui"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 34.0
+offset_top = 32.0
+offset_right = 34.0
+offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.33468834, 0.16010898, 0.1611757, 1)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("16_7kt33")
 
 [node name="hbox" type="HBoxContainer" parent="CanvasLayer/menu_ui"]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.71400005
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -179.5
-offset_top = -128.0
-offset_right = 150.5
-offset_bottom = -55.0
+anchor_bottom = 0.71400005
+offset_left = -165.0
+offset_top = 23.095978
+offset_right = 165.0
+offset_bottom = 96.09598
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 19
@@ -533,12 +356,20 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("9_bnhob")
+theme_override_styles/pressed = ExtResource("9_bnhob")
+theme_override_styles/hover = ExtResource("9_bnhob")
+theme_override_styles/focus = ExtResource("9_bnhob")
 text = "OK"
 
 [node name="cancel" type="Button" parent="CanvasLayer/menu_ui/hbox" groups=["ui"]]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("9_bnhob")
+theme_override_styles/pressed = ExtResource("9_bnhob")
+theme_override_styles/hover = ExtResource("9_bnhob")
+theme_override_styles/focus = ExtResource("9_bnhob")
 text = "CANCEL"
 
 [node name="Label" type="Label" parent="CanvasLayer/menu_ui"]
@@ -549,9 +380,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -225.5
-offset_top = -118.0
+offset_top = -103.0
 offset_right = 225.5
-offset_bottom = 1.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 36
@@ -574,10 +405,6 @@ parameters/looping = true
 
 [connection signal="button_down" from="CanvasLayer/gameover/Button" to="." method="_on_button_button_down"]
 [connection signal="pressed" from="CanvasLayer/settings_btn" to="Menu_handler" method="_on_menu_pressed"]
-[connection signal="pressed" from="CanvasLayer/settings/save_btn" to="CanvasLayer/settings" method="_on_save_btn_pressed"]
-[connection signal="value_changed" from="CanvasLayer/settings/ScrollContainer/VBoxContainer/volume/VBoxContainer/vol_Slider" to="CanvasLayer/settings" method="_on_vol_slider_value_changed"]
-[connection signal="toggled" from="CanvasLayer/settings/ScrollContainer/VBoxContainer/Music/music_btn" to="CanvasLayer/settings" method="_on_music_btn_toggled"]
-[connection signal="toggled" from="CanvasLayer/settings/ScrollContainer/VBoxContainer/sfx/sfx_btn" to="CanvasLayer/settings" method="_on_sfx_btn_toggled"]
-[connection signal="pressed" from="CanvasLayer/settings/menu" to="Menu_handler" method="_on_go_to_menu_pressed"]
+[connection signal="pressed" from="CanvasLayer/menu" to="Menu_handler" method="_on_go_to_menu_pressed"]
 [connection signal="pressed" from="CanvasLayer/menu_ui/hbox/menu" to="Menu_handler" method="_on_go_to_lobby_pressed"]
 [connection signal="pressed" from="CanvasLayer/menu_ui/hbox/cancel" to="Menu_handler" method="_on_cencel_pressed"]

@@ -14,23 +14,37 @@ extends CharacterBody3D
 @export_group("Total enemies map")
 @export var Total_enemies: Array[CharacterBody3D]
 
+@export_group("Camera Juice")
+@export var bob_speed := 10.0
+@export var bob_amount := 0.06
+@export var sprint_fov := 85.0
+@export var normal_fov := 75.0
+@export var fov_lerp_speed := 8.0
+@export var tilt_amount := 2.0
+
+var bob_time := 0.0
+var camera_origin : Vector3
+
 ## --- Nodes ---
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
-@onready var rear_marker = $CanvasLayer/SubViewportContainer/SubViewport/rear_cam_marker
-@onready var rear_camera = $CanvasLayer/SubViewportContainer/SubViewport/rear_cam_marker/back_cam
+@onready var rear_marker = $CanvasLayer/back_cam/SubViewport/rear_cam_marker
+@onready var rear_camera = $CanvasLayer/back_cam/SubViewport/rear_cam_marker/back_cam
 @onready var health_bar: ProgressBar = $CanvasLayer/health_bar
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var ray_coll: RayCast3D = $Head/Camera3D/RayCast3D
 
 
 
-@onready var menu_exit_btn: TextureButton = $CanvasLayer/settings/menu
-@onready var settings_btn: TextureButton = $CanvasLayer/settings_btn
+@onready var menu_exit_btn: TextureButton = $CanvasLayer/menu
+#@onready var settings_btn: TextureButton = $CanvasLayer/settings_btn
 
 
 var sound_tween: Tween
 @onready var menu_handler: Node = $Menu_handler
+
+#player states
+var moving: bool
 
 # Sounds
 @onready var run_sfx: AudioStreamPlayer3D = $run_sfx
@@ -43,9 +57,15 @@ var _rotation_target: Vector3 = Vector3.ZERO
 var Health: float = 100.0
 
 func _ready() -> void:
-	settings_btn.hide()
+	add_to_group("player")
+	if Game.game_states["isGameSaved"] == false:
+		Game.game_states["isGameSaved"] = true
+		Game._save()
 	Input.set_use_accumulated_input(false)
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
+	camera_origin = camera.position
+	camera.fov = normal_fov
 	
 	# Initial camera sync
 	_rotation_target.y = rotation.y
@@ -59,6 +79,7 @@ func _input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	rear_camera.global_transform = rear_marker.global_transform
 	_handle_camera_rotation(delta)
+	_camera_juice(delta)
 
 func _physics_process(delta: float) -> void:
 	_apply_gravity(delta)
@@ -71,14 +92,12 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("esc"):
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-			settings_btn.show()
+			menu_exit_btn.show()
 		else:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-			settings_btn.hide()
-			
+			menu_exit_btn.hide()
 
 ## --- Logic Functions ---
-
 func _check_collision() -> void:
 	if ray_coll.is_colliding():
 		var collider = ray_coll.get_collider()
@@ -110,13 +129,61 @@ func _handle_camera_rotation(delta: float) -> void:
 func _handle_movement(delta: float) -> void:
 	var input_dir := Input.get_vector("left", "right", "up", "down")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	
+
 	if direction:
 		velocity.x = lerp(velocity.x, direction.x * _current_speed, acceleration * delta)
 		velocity.z = lerp(velocity.z, direction.z * _current_speed, acceleration * delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, _current_speed * acceleration * delta)
 		velocity.z = move_toward(velocity.z, 0, _current_speed * acceleration * delta)
+
+	moving = Vector2(velocity.x, velocity.z).length() > 0.1 and is_on_floor()
+
+func _camera_juice(delta):
+	var speed := Vector2(velocity.x, velocity.z).length()
+
+	# HEAD BOB (Y only)
+	if is_on_floor() and speed > 0.1:
+		var bob_multiplier := 1.0
+
+		if _current_speed == sprint_speed:
+			bob_multiplier = 1.5
+
+		bob_time += delta * bob_speed * bob_multiplier
+
+		camera.position.y = camera_origin.y + sin(bob_time) * bob_amount
+	else:
+		camera.position.y = lerp(
+			camera.position.y,
+			camera_origin.y,
+			delta * 8.0
+		)
+
+	# Keep X fixed to prevent clipping
+	camera.position.x = camera_origin.x
+	camera.position.z = camera_origin.z
+
+	# FOV EFFECT
+	var target_fov := normal_fov
+
+	if _current_speed == sprint_speed:
+		target_fov = sprint_fov
+
+	camera.fov = lerp(
+		camera.fov,
+		target_fov,
+		delta * fov_lerp_speed
+	)
+
+	# LIGHT STRAFE TILT
+	var input_x := Input.get_axis("left", "right")
+	var target_roll := deg_to_rad(-input_x * tilt_amount)
+
+	camera.rotation.z = lerp(
+		camera.rotation.z,
+		target_roll,
+		delta * 6.0
+	)
 
 func _handle_jump() -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -133,34 +200,17 @@ func _handle_jump() -> void:
 		#if run_sfx.playing:
 			#run_sfx.stop() 
 
-func _handle_sounds() -> void:
-	var horizontal_velocity = Vector2(velocity.x, velocity.z).length()
-	
-	if is_on_floor() and horizontal_velocity > 0.1:
-		if not run_sfx.playing:
-			# Kill any active fade-out tween
-			if sound_tween and sound_tween.is_running():
-				sound_tween.kill()
-				
-			run_sfx.volume_db = -40.0
+func _handle_sounds():
+	var horizontal_velocity := Vector2(velocity.x, velocity.z).length()
+
+	if is_on_floor() and horizontal_velocity > 0.1 and GlobalSave.Contents_to_save.get("Sfx", true):
+		if !run_sfx.playing:
+			print("PLAY")
 			run_sfx.play()
-			
-			sound_tween = create_tween()
-			sound_tween.tween_property(run_sfx, "volume_db", 0.0, 0.2)
-			
-		run_sfx.pitch_scale = 1.2 if _current_speed == sprint_speed else 1.0
 	else:
-		if run_sfx.playing and (sound_tween == null or not sound_tween.is_running()):
-			# Kill any active fade-in tween
-			if sound_tween and sound_tween.is_running():
-				sound_tween.kill()
-				
-			sound_tween = create_tween()
-			# Fade to silent, then automatically stop the audio node
-			sound_tween.tween_property(run_sfx, "volume_db", -40.0, 0.2)
-			sound_tween.tween_callback(run_sfx.stop)
-
-
+		if run_sfx.playing:
+			print("STOP")
+			run_sfx.stop()
 
 func _handle_sprint() -> void:
 	var is_moving_forward = Input.get_vector("left", "right", "up", "down").y < -0.1
@@ -174,7 +224,6 @@ func _apply_gravity(delta: float) -> void:
 		velocity.y -= gravity * delta
 
 ## --- Helpers ---
-
 func _damage() -> void:
 	Health -= 10
 	if health_bar:

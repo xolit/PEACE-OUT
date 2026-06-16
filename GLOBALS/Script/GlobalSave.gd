@@ -6,6 +6,12 @@ var Contents_to_save: Dictionary = {
 	"Music": true,
 	"AllVolume": 100.0,
 	"Sfx": true,
+	"Bones": true,
+	"fog": true,
+	"glow": true,
+	"backcam": true,
+	"watertexture": true,
+	"walltexture": true,
 	"Senstivity": 0.002
 }
 

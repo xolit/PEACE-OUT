@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b1ncssws7p6f8" path="res://MAP/backrooms/scene/components/textures/wallpaper_color.png" id="1_7thni"]
 
 [resource]
+albedo_color = Color(0.6430241, 0.55584335, 0.25197947, 1)
 albedo_texture = ExtResource("1_7thni")
 uv1_scale = Vector3(0.575, 0.575, 0.575)
 uv1_triplanar = true

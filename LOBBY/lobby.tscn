@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://ojledebb0kax"]
+[gd_scene load_steps=46 format=3 uid="uid://ojledebb0kax"]
 
 [ext_resource type="Script" uid="uid://dvrju07utyp0t" path="res://LOBBY/lobby.gd" id="1_ico0s"]
 [ext_resource type="Texture2D" uid="uid://beapesprnfthd" path="res://UI/play_btn.png" id="2_5jmve"]
@@ -6,8 +6,12 @@
 [ext_resource type="Script" uid="uid://brfi8dx350358" path="res://LOBBY/lobby_anim_handler.gd" id="2_xkt1r"]
 [ext_resource type="Texture2D" uid="uid://dog2eymlcql6m" path="res://UI/quit_btn.png" id="3_p37ir"]
 [ext_resource type="Texture2D" uid="uid://5p1ye3dr2e0b" path="res://UI/setting_btn.png" id="4_f3oky"]
+[ext_resource type="FontFile" uid="uid://c5dbetfqplyid" path="res://LOADING/fonts/Spooky And Dreadful Free.otf" id="4_p2pwv"]
+[ext_resource type="Shader" uid="uid://bwflg8hb6b33h" path="res://LOBBY/lobby.gdshader" id="5_54sn5"]
+[ext_resource type="FontFile" uid="uid://dfj7rlpucyt3g" path="res://LOADING/fonts/Phantom Screams.otf" id="5_84vp8"]
 [ext_resource type="AudioStream" uid="uid://lguc162h7yj0" path="res://PLAYER/music/main_menu_horror.mp3" id="5_p37ir"]
 [ext_resource type="AudioStream" uid="uid://e6cbv8jlfyi7" path="res://PLAYER/music/Click_btn.mp3" id="6_axn5n"]
+[ext_resource type="FontFile" uid="uid://w24cmlggv6t7" path="res://GLOBALS/font/MontserratAlternates-Bold.otf" id="6_uhwsj"]
 [ext_resource type="AudioStream" uid="uid://datu0ncrpa50" path="res://PLAYER/music/Back_btn.mp3" id="7_8ox1p"]
 [ext_resource type="AudioStream" uid="uid://o3wfvpooknky" path="res://PLAYER/music/Pause_menu_toggle.mp3" id="8_kxrdw"]
 [ext_resource type="PackedScene" uid="uid://tka0shj4j7pj" path="res://LOBBY/settings/settings.tscn" id="10_jekgc"]
@@ -17,33 +21,69 @@
 [ext_resource type="Script" uid="uid://b6lxhq1xu3yp4" path="res://MAP/backrooms/scripts/water.gd" id="14_54sn5"]
 [ext_resource type="PackedScene" uid="uid://bluv2vni0qbxn" path="res://MAP/backrooms/scene/components/wall/wall.tscn" id="15_uhwsj"]
 
-[sub_resource type="Animation" id="Animation_54sn5"]
-resource_name = "settings_on"
-length = 0.7
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("settings:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(2.9802322e-08, 0.6666667),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(114, -735), Vector2(114, 69)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("settings:visible")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
+[sub_resource type="GDScript" id="GDScript_uhwsj"]
+script/source = "extends Node
+#
+#@export var play_btn: Button 
+#@export var quit_btn: Button
+#@export var settings_btn: Button
+#
+##@onready var animation_player: AnimationPlayer = $\"../Control/AnimationPlayer\"
+#
+##play_btn
+#func _on_play_text_btn_mouse_entered() -> void:
+	#_play_anim_of_hover(play_btn.name, false)
+#
+#func _on_play_text_btn_mouse_exited() -> void:
+	#_play_anim_of_hover(play_btn.name, true)
+#
+#
+##quit_btn
+#func _on_quit_text_btn_mouse_entered() -> void:
+	#_play_anim_of_hover(quit_btn.name, false)
+#
+#func _on_quit_text_btn_mouse_exited() -> void:
+	#pass # Replace with function body.
+#
+#
+##setting_btn
+#func _on_settings_text_btn_mouse_entered() -> void:
+	#_play_anim_of_hover(settings_btn.name, false)
+#
+#func _on_settings_text_btn_mouse_exited() -> void:
+	#pass # Replace with function body.
+#
+#func _play_anim_of_hover(btn_name, is_hover_exit: bool) -> void:
+	#if is_hover_exit:
+		#animation_player.play(str(btn_name)+\"_not\")
+	#else:
+		#animation_player.play(str(btn_name))
+"
+
+[sub_resource type="FontVariation" id="FontVariation_84vp8"]
+base_font = ExtResource("4_p2pwv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uhwsj"]
+shader = ExtResource("5_54sn5")
+shader_parameter/fade_start = 0.0
+shader_parameter/fade_end = 1.0
+
+[sub_resource type="FontVariation" id="FontVariation_6qaeg"]
+base_font = ExtResource("6_uhwsj")
+
+[sub_resource type="FontVariation" id="FontVariation_lvsf6"]
+base_font = ExtResource("6_uhwsj")
+
+[sub_resource type="FontVariation" id="FontVariation_54sn5"]
+base_font = ExtResource("5_84vp8")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uhwsj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6qaeg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lvsf6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0dn0x"]
 
 [sub_resource type="Animation" id="Animation_uhwsj"]
 length = 0.001
@@ -100,6 +140,34 @@ tracks/1/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_54sn5"]
+resource_name = "settings_on"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("settings:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2.9802322e-08, 0.6666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(114, -735), Vector2(114, 69)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("settings:visible")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6qaeg"]
 _data = {
 &"RESET": SubResource("Animation_uhwsj"),
@@ -134,6 +202,57 @@ size = Vector3(115, 0.5, 115)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_gsa2g"]
 size = Vector2(115, 115)
+
+[sub_resource type="Animation" id="Animation_xkt1r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D/black_screen:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera3D/black_screen:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 3.102652, -46.637367)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Camera3D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.061994076, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_8ww1s"]
 resource_name = "lobby_cutscene"
@@ -185,57 +304,6 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, -0.061994076, 0), Vector3(0, -1.8284069, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_xkt1r"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D/black_screen:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Camera3D/black_screen:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Camera3D:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 3.102652, -46.637367)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Camera3D:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, -0.061994076, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_p2pwv"]
@@ -359,6 +427,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ico0s")
 
+[node name="tewwn_hover" type="Node" parent="."]
+script = SubResource("GDScript_uhwsj")
+
 [node name="lobby_anim_handler" type="Node" parent="."]
 script = ExtResource("2_xkt1r")
 
@@ -372,7 +443,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.48235294, 0.32156864, 0.36862746, 0)
+color = Color(0.4822746, 0.32086813, 0.368734, 0)
 
 [node name="game_name" type="Label" parent="ColorRect"]
 layout_mode = 0
@@ -380,12 +451,146 @@ offset_left = 60.0
 offset_top = 48.0
 offset_right = 577.0
 offset_bottom = 180.0
+theme_override_fonts/font = SubResource("FontVariation_84vp8")
 theme_override_font_sizes/font_size = 96
 text = "PEACE OUT"
-horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="gradient_bg" type="ColorRect" parent="ColorRect"]
+z_index = -1
+material = SubResource("ShaderMaterial_uhwsj")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.48962224, 0.48962224, 0.48962218, 1)
+
+[node name="cc" type="Label" parent="ColorRect"]
+modulate = Color(1, 1, 1, 0.282)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -169.0
+offset_top = -51.0
+offset_right = -28.0
+offset_bottom = -19.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = SubResource("FontVariation_6qaeg")
+theme_override_font_sizes/font_size = 23
+text = "Presented By GoGame "
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="game_version" type="Label" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_top = -51.0
+offset_right = 158.0
+offset_bottom = -19.0
+grow_vertical = 0
+theme_override_fonts/font = SubResource("FontVariation_lvsf6")
+theme_override_font_sizes/font_size = 23
+text = "v1.0"
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.117000006
+anchor_top = 0.333
+anchor_right = 0.48700002
+anchor_bottom = 1.0
+offset_left = -74.78401
+offset_top = 0.21600342
+offset_right = -0.024047852
+offset_bottom = -53.0
+grow_vertical = 0
+
+[node name="play_text_btn" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -189.5
+offset_right = 225.0
+offset_bottom = -51.5
+grow_vertical = 2
+theme_override_constants/icon_max_width = 95
+theme_override_fonts/font = SubResource("FontVariation_54sn5")
+theme_override_font_sizes/font_size = 96
+theme_override_icons/icon = ExtResource("2_5jmve")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_uhwsj")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_6qaeg")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_lvsf6")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0dn0x")
+text = "Play"
+alignment = 0
+icon_alignment = 2
+
+[node name="quit_text_btn" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -77.5
+offset_right = 225.0
+offset_bottom = 60.5
+grow_vertical = 2
+theme_override_constants/icon_max_width = 95
+theme_override_fonts/font = SubResource("FontVariation_54sn5")
+theme_override_font_sizes/font_size = 96
+theme_override_icons/icon = ExtResource("3_p37ir")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_uhwsj")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_6qaeg")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_lvsf6")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0dn0x")
+text = "Quit"
+alignment = 0
+icon_alignment = 2
+
+[node name="settings_text_btn" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = 21.5
+offset_right = 322.0
+offset_bottom = 159.5
+grow_vertical = 2
+theme_override_constants/h_separation = 13
+theme_override_constants/icon_max_width = 95
+theme_override_fonts/font = SubResource("FontVariation_54sn5")
+theme_override_font_sizes/font_size = 96
+theme_override_icons/icon = ExtResource("4_f3oky")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_uhwsj")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_6qaeg")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_lvsf6")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0dn0x")
+text = "Settings"
+alignment = 0
+icon_alignment = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+visible = false
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.6932727, 0.33146125, 0.47985578, 1)
+
 [node name="play" type="TextureButton" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -402,6 +607,7 @@ scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("2_5jmve")
 
 [node name="quit" type="TextureButton" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -418,6 +624,7 @@ scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("3_p37ir")
 
 [node name="settings_btn" type="TextureButton" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -692,6 +899,9 @@ libraries = {
 }
 autoplay = "lobby_cutscene"
 
+[connection signal="pressed" from="Control/play_text_btn" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Control/quit_text_btn" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Control/settings_text_btn" to="." method="_on_settings_btn_pressed"]
 [connection signal="pressed" from="play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="settings_btn" to="." method="_on_settings_btn_pressed"]

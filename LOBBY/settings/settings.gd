@@ -10,16 +10,35 @@ extends Control
 @export var ui_anim: AnimationPlayer 
 
 #nodes
+@onready var player: CharacterBody3D
+
 @onready var input_4_sens: LineEdit = $ScrollContainer/VBoxContainer/Senstivity/input4sens
 @onready var music_btn: TextureButton = $ScrollContainer/VBoxContainer/Music/music_btn
 @onready var sfx_btn: TextureButton = $ScrollContainer/VBoxContainer/sfx/sfx_btn
+@onready var fog_btn: TextureButton = $ScrollContainer/VBoxContainer/fog/fog_btn
+@onready var glow_btn: TextureButton = $ScrollContainer/VBoxContainer/glow/glow_btn
+@onready var backcam_btn: TextureButton = $ScrollContainer/VBoxContainer/back_cam/backcam_btn
+@onready var watertexture_btn: TextureButton = $ScrollContainer/VBoxContainer/watertexture/watertexture_btn
+@onready var walltexture_btn: TextureButton = $ScrollContainer/VBoxContainer/walltexture/walltexture_btn
+
+#display lobby btns on setting close
+@onready var game_name: Label = $"../ColorRect/game_name"
+@onready var play_text_btn: Button = $"../Control/play_text_btn"
+@onready var quit_text_btn: Button = $"../Control/quit_text_btn"
+@onready var settings_text_btn: Button = $"../Control/settings_text_btn"
+
+#@onready var game_states: Node = $"../../game_states"
+
+
 @onready var vol_slider: HSlider = $ScrollContainer/VBoxContainer/volume/VBoxContainer/vol_Slider
-@onready var vol_label: Label = $ScrollContainer/VBoxContainer/volume/VBoxContainer/vol_label
+@onready var vol_label: Label = $ScrollContainer/VBoxContainer/volume/vol_percent
 
 @export var is_lobby_setting: bool
+
 var data: Dictionary
 
 func _ready() -> void:
+	player = get_tree().get_first_node_in_group("player")
 	verify_audio_buses()
 	data = GlobalSave.Contents_to_save
 	apply_settings()
@@ -27,10 +46,13 @@ func _ready() -> void:
 func _on_save_btn_pressed() -> void:
 	if data.get("Sfx", true):
 		back_sfx.play()
-	settings_btn.show()
 	if is_lobby_setting:
 		if not ui_anim.is_playing():
 			ui_anim.play("settings_off")
+		game_name.show()
+		settings_text_btn.show()
+		quit_text_btn.show()
+		play_text_btn.show()
 	else:
 		settings_ui.hide()
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -50,10 +72,26 @@ func _on_sfx_btn_toggled(toggled_on: bool) -> void:
 	GlobalSave.Contents_to_save["Sfx"] = toggled_on
 	update_bus_mute_state("SFX", toggled_on)
 
+func _on_fog_btn_toggled(toggled_on: bool) -> void:
+	if data.get("Sfx", true):
+		click_sfx.play()
+	GlobalSave.Contents_to_save["fog"] = toggled_on
+
+func _on_glow_btn_toggled(toggled_on: bool) -> void:
+	if data.get("Sfx", true):
+		click_sfx.play()
+	GlobalSave.Contents_to_save["glow"] = toggled_on
+
 func _on_vol_slider_value_changed(value: float) -> void:
 	GlobalSave.Contents_to_save["AllVolume"] = value
 	vol_label.text = str(int(round(value))) + "%"
 	set_master_volume(value)
+
+
+func _on_backcam_btn_toggled(toggled_on: bool) -> void:
+	if data.get("Sfx", true):
+		click_sfx.play()
+	GlobalSave.Contents_to_save["backcam"] = toggled_on
 
 func defaul_setting_checker() -> void:
 	var new_sens_value: float = input_4_sens.text.to_float()
@@ -64,6 +102,7 @@ func defaul_setting_checker() -> void:
 	var current_vol: float = float(GlobalSave.Contents_to_save.get("AllVolume", 100.0))
 	if vol_slider.value != current_vol:
 		GlobalSave.Contents_to_save["AllVolume"] = vol_slider.value
+	
 
 func apply_settings() -> void:
 	input_4_sens.text = str(data.get("Senstivity", 0.002))
@@ -75,10 +114,26 @@ func apply_settings() -> void:
 	sfx_btn.button_pressed = sfx_state
 	update_bus_mute_state("SFX", sfx_state)
 	
+	
 	var saved_vol: float = float(data.get("AllVolume", 100.0))
 	vol_slider.value = saved_vol
 	vol_label.text = str(int(round(saved_vol))) + "%"
 	set_master_volume(saved_vol)
+	
+	var fog_state: bool = data.get("fog", true)
+	fog_btn.button_pressed = fog_state
+	
+	var glow_state: bool = data.get("glow", true)
+	glow_btn.button_pressed = glow_state
+	
+	var backcam_state: bool = data.get("backcam", true)
+	backcam_btn.button_pressed = backcam_state
+	
+	var watertexture_state: bool = data.get("watertexture", true)
+	watertexture_btn.button_pressed = watertexture_state
+	
+	var walltexture_state: bool = data.get("walltexture", true)
+	walltexture_btn.button_pressed = walltexture_state
 	
 	
 	if music_state and not lobby_sfx.playing:
@@ -105,3 +160,15 @@ func verify_audio_buses() -> void:
 			var new_index: int = AudioServer.get_bus_count() - 1
 			AudioServer.set_bus_name(new_index, bus_name)
 			AudioServer.set_bus_send(new_index, "Master")
+
+
+func _on_watertexture_btn_toggled(toggled_on: bool) -> void:
+	if data.get("Sfx", true):
+		click_sfx.play()
+	GlobalSave.Contents_to_save["watertexture"] = toggled_on
+
+
+func _on_walltexture_btn_toggled(toggled_on: bool) -> void:
+	if data.get("Sfx", true):
+		click_sfx.play()
+	GlobalSave.Contents_to_save["walltexture"] = toggled_on
