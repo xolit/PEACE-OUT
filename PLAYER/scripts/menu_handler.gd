@@ -10,8 +10,8 @@ extends Node
 @onready var timer_label: Label = $"../CanvasLayer/timer_label"
 @onready var crosshair: TextureRect = $"../CanvasLayer/crosshair"
 @onready var health_bar: ProgressBar = $"../CanvasLayer/health_bar"
-@onready var settings_btn: TextureButton = $"../CanvasLayer/settings_btn"
 @onready var game_states: Node = $"../game_states"
+@onready var mobilecontrols: Control = $"../CanvasLayer/MOBILECONTROLS"
 
 var door_opn_txt: bool = false
 
@@ -28,19 +28,19 @@ func _process(_delta: float) -> void:
 
 func _on_go_to_menu_pressed() -> void:
 	menu_ui.show()
+	mobilecontrols.hide()
 	back_cam.hide()
 	timer_label.hide()
 	health_bar.hide()
 	crosshair.hide()
-	settings_btn.hide()
 
 func _on_cencel_pressed() -> void:
 	menu_ui.hide()
+	mobilecontrols.show()
 	back_cam.show()
 	timer_label.show()
 	health_bar.show()
 	crosshair.show()
-	settings_btn.show()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _door_is_colliding(status: bool)->void:

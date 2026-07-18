@@ -25,6 +25,11 @@ extends CharacterBody3D
 var bob_time := 0.0
 var camera_origin : Vector3
 
+var touch_dragging := false
+var last_touch_position := Vector2.ZERO
+
+@export var touch_sensitivity := 0.005
+
 ## --- Nodes ---
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
@@ -38,7 +43,7 @@ var camera_origin : Vector3
 #hands
 @onready var right_hand = $Head/Camera3D/hand/right
 
-@onready var menu_exit_btn: TextureButton = $CanvasLayer/menu
+@onready var menu_exit_btn: TouchScreenButton = $CanvasLayer/menu
 #@onready var settings_btn: TextureButton = $CanvasLayer/settings_btn
 
 
@@ -74,9 +79,21 @@ func _ready() -> void:
 	_rotation_target.x = camera.rotation.x
 
 func _input(event: InputEvent) -> void:
-	# Mouse handling
+	# Desktop
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		_camera_input += event.relative * mouse_sensitivity
+
+	# Mobile
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			touch_dragging = true
+			last_touch_position = event.position
+		else:
+			touch_dragging = false
+
+	if event is InputEventScreenDrag and touch_dragging:
+		_camera_input.x += event.relative.x * touch_sensitivity
+		_camera_input.y += event.relative.y * touch_sensitivity
 
 func _process(delta: float) -> void:
 	rear_camera.global_transform = rear_marker.global_transform
@@ -121,12 +138,26 @@ func _check_collision() -> void:
 func _handle_camera_rotation(delta: float) -> void:
 	_rotation_target.y -= _camera_input.x
 	_rotation_target.x -= _camera_input.y
-	_rotation_target.x = clamp(_rotation_target.x, deg_to_rad(-90), deg_to_rad(90))
-	
-	_camera_input = Vector2.ZERO # Clear buffer
-	
-	rotation.y = lerp_angle(rotation.y, _rotation_target.y, smoothing_weight * delta)
-	camera.rotation.x = lerp_angle(camera.rotation.x, _rotation_target.x, smoothing_weight * delta)
+
+	_rotation_target.x = clamp(
+		_rotation_target.x,
+		deg_to_rad(-90),
+		deg_to_rad(90)
+	)
+
+	_camera_input = Vector2.ZERO
+
+	rotation.y = lerp_angle(
+		rotation.y,
+		_rotation_target.y,
+		smoothing_weight * delta
+	)
+
+	camera.rotation.x = lerp_angle(
+		camera.rotation.x,
+		_rotation_target.x,
+		smoothing_weight * delta
+	)
 
 func _handle_movement(delta: float) -> void:
 	var input_dir := Input.get_vector("left", "right", "up", "down")
