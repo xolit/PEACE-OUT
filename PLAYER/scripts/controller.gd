@@ -35,6 +35,8 @@ var camera_origin : Vector3
 @onready var ray_coll: RayCast3D = $Head/Camera3D/RayCast3D
 
 
+#hands
+@onready var right_hand = $Head/Camera3D/hand/right
 
 @onready var menu_exit_btn: TextureButton = $CanvasLayer/menu
 #@onready var settings_btn: TextureButton = $CanvasLayer/settings_btn
@@ -231,12 +233,16 @@ func _damage() -> void:
 	if animation_player.has_animation("damage"):
 		animation_player.play("damage")
 	if Health <= 0:
-		_die()
+		_die(false)
 
-func _die() -> void:
+func _die(timeover) -> void:
 	Health = 0
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	menu_handler._game_over()
+	
+	if timeover:
+		menu_handler._game_over(true)
+	else:
+		menu_handler._game_over(false)
 	
 	set_process_input(false)
 	set_physics_process(false)

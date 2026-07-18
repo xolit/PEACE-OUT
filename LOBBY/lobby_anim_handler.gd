@@ -7,7 +7,7 @@ var base_anim_name: String = "lobby_cutscene" # Fixed base name
 @export var max_cutscenes: int = 2
 @onready var lobby_anim: AnimationPlayer = $"../3dLobby/backroom/lobbyAnim"
 
-func _on_lobby_anim_animation_finished(anim_name: StringName) -> void:
+func _on_lobby_anim_animation_finished(anim) -> void:
 	anim_number_for += 1
 	
 	if anim_number_for > max_cutscenes:

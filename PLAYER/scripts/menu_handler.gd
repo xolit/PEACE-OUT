@@ -1,18 +1,17 @@
 extends Node
 
-#@onready var menu_btn: TextureButton = $"../CanvasLayer/settings/menu"
+
 @onready var menu_ui: Control = $"../CanvasLayer/menu_ui"
 @onready var door_colliding_label: Label = $"../CanvasLayer/door_colliding_label"
 @onready var gameover: Control = $"../CanvasLayer/gameover"
 @onready var game_over_sfx: AudioStreamPlayer = $"../CanvasLayer/gameover/game_over"
-#@onready var settings: Control = $"../CanvasLayer/settings"
+@onready var gameover_label: Label = $"../CanvasLayer/gameover/gameover_label"
 @onready var back_cam: SubViewportContainer = $"../CanvasLayer/back_cam"
 @onready var timer_label: Label = $"../CanvasLayer/timer_label"
 @onready var crosshair: TextureRect = $"../CanvasLayer/crosshair"
 @onready var health_bar: ProgressBar = $"../CanvasLayer/health_bar"
 @onready var settings_btn: TextureButton = $"../CanvasLayer/settings_btn"
 @onready var game_states: Node = $"../game_states"
-
 
 var door_opn_txt: bool = false
 
@@ -48,11 +47,19 @@ func _door_is_colliding(status: bool)->void:
 	door_colliding_label.visible = status
 	door_colliding_label.text = "Interact With [E]"
 
-func _game_over()-> void:
-	gameover.show()
-	game_over_sfx.play()
-
+func _game_over(gameoverbytime)-> void:
+	if gameoverbytime:
+		gameover_label.text = "Developer Is Mad. you died!"
+		gameover.show()
+		game_over_sfx.play()
+	else:
+		gameover_label.text = "Monster Killed You!"
+		gameover.show()
+		game_over_sfx.play()
 
 func _on_go_to_lobby_pressed() -> void:
 	game_states._save_game_state()
+	Game.game_states["health"] = health_bar.value
+	Game.game_states["timer"] = timer_label.text
+	Game._save()
 	Global.change_scene("res://LOBBY/lobby.tscn")

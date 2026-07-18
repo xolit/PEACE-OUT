@@ -6,6 +6,8 @@ var game_states: Dictionary = {
 	"isGameSaved": false,
 	"book": false, 
 	"lighter": false, 
+	"health": 100.0,
+	"timer": "3.30",
 	"player_position_and_rotation": { 
 		"x_pos": 12.397, 
 		"y_pos": 0.0, 

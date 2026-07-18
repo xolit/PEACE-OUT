@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://ojledebb0kax"]
+[gd_scene load_steps=47 format=3 uid="uid://ojledebb0kax"]
 
 [ext_resource type="Script" uid="uid://dvrju07utyp0t" path="res://LOBBY/lobby.gd" id="1_ico0s"]
 [ext_resource type="Texture2D" uid="uid://beapesprnfthd" path="res://UI/play_btn.png" id="2_5jmve"]
@@ -84,6 +84,9 @@ base_font = ExtResource("5_84vp8")
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lvsf6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0dn0x"]
+
+[sub_resource type="FontVariation" id="FontVariation_uhwsj"]
+base_font = ExtResource("6_uhwsj")
 
 [sub_resource type="Animation" id="Animation_uhwsj"]
 length = 0.001
@@ -588,6 +591,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.6932727, 0.33146125, 0.47985578, 1)
+
+[node name="Hint" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="hint_label" type="Label" parent="Hint"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 14.0
+offset_right = 538.0
+offset_bottom = 47.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.30900002)
+theme_override_fonts/font = SubResource("FontVariation_uhwsj")
+theme_override_font_sizes/font_size = 26
+text = "Hint: Waste Time Like You Do Always"
 
 [node name="play" type="TextureButton" parent="."]
 visible = false
