@@ -24,10 +24,10 @@ extends CharacterBody3D
 
 var bob_time := 0.0
 var camera_origin : Vector3
-
 var touch_dragging := false
 var last_touch_position := Vector2.ZERO
 
+@export var can_move: bool = true
 @export var touch_sensitivity := 0.005
 
 ## --- Nodes ---
@@ -42,10 +42,7 @@ var last_touch_position := Vector2.ZERO
 
 #hands
 @onready var right_hand = $Head/Camera3D/hand/right
-
 @onready var menu_exit_btn: TouchScreenButton = $CanvasLayer/menu
-#@onready var settings_btn: TextureButton = $CanvasLayer/settings_btn
-
 
 var sound_tween: Tween
 @onready var menu_handler: Node = $Menu_handler
@@ -65,6 +62,7 @@ var Health: float = 100.0
 
 func _ready() -> void:
 	add_to_group("player")
+	play_animation_of_newgame()
 	if Game.game_states["isGameSaved"] == false:
 		Game.game_states["isGameSaved"] = true
 		Game._save()
@@ -101,13 +99,19 @@ func _process(delta: float) -> void:
 	_camera_juice(delta)
 
 func _physics_process(delta: float) -> void:
-	_apply_gravity(delta)
-	_handle_jump()
-	_handle_sprint()
-	_handle_movement(delta)
-	_handle_sounds()
-	_check_collision()
+	if can_move:
+		_apply_gravity(delta)
+		_handle_jump()
+		_handle_sprint()
+		_handle_movement(delta)
+		_handle_sounds()
+		_check_collision()
+	else:
+		velocity.x = 0
+		velocity.z = 0
+
 	move_and_slide()
+
 	if Input.is_action_just_pressed("esc"):
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -136,6 +140,8 @@ func _check_collision() -> void:
 		menu_handler.door_opn_txt = false
 
 func _handle_camera_rotation(delta: float) -> void:
+	if !can_move:
+		return
 	_rotation_target.y -= _camera_input.x
 	_rotation_target.x -= _camera_input.y
 
@@ -283,3 +289,8 @@ func _die(timeover) -> void:
 		if is_instance_valid(enemy):
 			enemy.queue_free()
 	Total_enemies.clear()
+
+func play_animation_of_newgame()-> void:
+	if !Game.game_states["isGameSaved"]:
+		animation_player.play("new_game")
+	else: pass

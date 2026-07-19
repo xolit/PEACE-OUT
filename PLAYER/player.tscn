@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b7airxa0yw8sq"]
+[gd_scene load_steps=26 format=3 uid="uid://b7airxa0yw8sq"]
 
 [ext_resource type="Script" uid="uid://2gcn1n8ubplm" path="res://PLAYER/scripts/controller.gd" id="1_i10xq"]
 [ext_resource type="Script" uid="uid://dkhoksvk17mfc" path="res://PLAYER/scripts/game_states.gd" id="2_bnhob"]
@@ -67,6 +67,54 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-8.844217, 0, -34.667076)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.3236712, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CanvasLayer:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:can_move")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_d1135"]
 resource_name = "damage"
@@ -95,16 +143,70 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_af28b"]
+resource_name = "new_game"
+length = 7.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4.0333333, 7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(-8.844217, 0, -34.667076), Vector3(-7.0119104, 0, -41.88004), Vector3(-0.21208096, 0, -47.253963), Vector3(16.783424, 0, -47.253963)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2, 4.0333333, 5.023499, 6.003499, 7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -0.3236712, 0), Vector3(0, -1.175898, 0), Vector3(0, -1.5609874, 0), Vector3(0, -2.0585284, 0), Vector3(0, -0.73033285, 0), Vector3(0, -1.5609874, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer:visible")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:can_move")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_45mp0"]
 _data = {
 &"RESET": SubResource("Animation_yrfig"),
-&"damage": SubResource("Animation_d1135")
+&"damage": SubResource("Animation_d1135"),
+&"new_game": SubResource("Animation_af28b")
 }
 
 [node name="Player" type="CharacterBody3D"]
 process_mode = 1
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+transform = Transform3D(1.8961483, 0, -0.6360985, 0, 2, 0, 0.6360985, 0, 1.8961483, -8.844217, 0, -34.667076)
 script = ExtResource("1_i10xq")
+can_move = false
 
 [node name="game_states" type="Node" parent="."]
 script = ExtResource("2_bnhob")
@@ -143,6 +245,7 @@ shape = SubResource("ConvexPolygonShape3D_yrfig")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." groups=["ui"]]
 process_mode = 3
+visible = false
 
 [node name="gameover" type="Control" parent="CanvasLayer"]
 visible = false
@@ -266,12 +369,12 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="CanvasLayer/back_cam"]
 handle_input_locally = false
 size = Vector2i(402, 298)
-render_target_update_mode = 4
+render_target_update_mode = 0
 
 [node name="rear_cam_marker" type="Marker3D" parent="CanvasLayer/back_cam/SubViewport"]
 
 [node name="back_cam" type="Camera3D" parent="CanvasLayer/back_cam/SubViewport/rear_cam_marker"]
-transform = Transform3D(-2, 0, 1.7484555e-07, 0, 2, 0, -1.7484555e-07, 0, -2, 0, 3.1078746, 0)
+transform = Transform3D(-1.8961483, 0, 0.6360987, 0, 2, 0, -0.6360987, 0, -1.8961483, -8.844217, 3.1078746, -34.667076)
 
 [node name="damage_Rect" type="ColorRect" parent="CanvasLayer"]
 modulate = Color(1, 1, 1, 0)

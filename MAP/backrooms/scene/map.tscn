@@ -703,7 +703,7 @@ attack_range = 2.5
 patrol_points = [NodePath("../../paterols/PatrolPoint5"), NodePath("../../paterols/PatrolPoint6"), NodePath("../../paterols/PatrolPoint7"), NodePath("../../paterols/PatrolPoint8"), NodePath("../../paterols/PatrolPoint9"), NodePath("../../paterols/PatrolPoint10"), NodePath("../../paterols/PatrolPoint11"), NodePath("../../paterols/PatrolPoint12"), NodePath("../../paterols/PatrolPoint13"), NodePath("../../paterols/PatrolPoint14"), NodePath("../../paterols/PatrolPoint15"), NodePath("../../paterols/PatrolPoint16"), NodePath("../../paterols/PatrolPoint17"), NodePath("../../paterols/PatrolPoint18")]
 
 [node name="Player" parent="." node_paths=PackedStringArray("Total_enemies") instance=ExtResource("3_pujc7")]
-transform = Transform3D(-0.8528848, 0, -1.8090295, 0, 2, 0, 1.8090295, 0, -0.8528848, 12.396912, 0, -49.15737)
+transform = Transform3D(1.8961475, 0, -0.63609827, 0, 2, 0, 0.63609827, 0, 1.8961475, -8.844217, 0, -34.667076)
 walk_speed = 12.0
 sprint_speed = 19.0
 Total_enemies = [NodePath("../enemies/abd_Enemy"), NodePath("../enemies/abd_Enemy3")]
