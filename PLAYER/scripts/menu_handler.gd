@@ -47,15 +47,15 @@ func _door_is_colliding(status: bool)->void:
 	door_colliding_label.visible = status
 	door_colliding_label.text = "Interact With [E]"
 
-func _game_over(gameoverbytime)-> void:
+func _game_over(gameoverbytime) -> void:
 	if gameoverbytime:
-		gameover_label.text = "Developer Is Mad. you died!"
-		gameover.show()
-		game_over_sfx.play()
+		gameover_label.text = "Developer Is Mad. You Died!"
 	else:
 		gameover_label.text = "Monster Killed You!"
-		gameover.show()
-		game_over_sfx.play()
+	gameover.show()
+	game_over_sfx.play()
+	await get_tree().create_timer(5.0).timeout
+	Global.change_scene("res://LOBBY/lobby.tscn")
 
 func _on_go_to_lobby_pressed() -> void:
 	game_states._save_game_state()

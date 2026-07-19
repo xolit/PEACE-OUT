@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b7airxa0yw8sq"]
+[gd_scene load_steps=25 format=3 uid="uid://b7airxa0yw8sq"]
 
 [ext_resource type="Script" uid="uid://2gcn1n8ubplm" path="res://PLAYER/scripts/controller.gd" id="1_i10xq"]
 [ext_resource type="Script" uid="uid://dkhoksvk17mfc" path="res://PLAYER/scripts/game_states.gd" id="2_bnhob"]
@@ -11,8 +11,10 @@
 [ext_resource type="Script" uid="uid://cdbtetdv2o5r8" path="res://PLAYER/scripts/timer.gd" id="8_3bb6o"]
 [ext_resource type="StyleBox" uid="uid://0hewylush2ki" path="res://GLOBALS/btns_normal.tres" id="9_bnhob"]
 [ext_resource type="AudioStream" uid="uid://l6et3git7vwv" path="res://PLAYER/music/running_on_water.mp3" id="12_6hrs2"]
+[ext_resource type="Texture2D" uid="uid://domdgrccs766d" path="res://PLAYER/mobile_controls/jump_normal.png" id="12_af28b"]
+[ext_resource type="Texture2D" uid="uid://cr3p574k4dd4x" path="res://PLAYER/mobile_controls/run_normal.png" id="13_688gd"]
 [ext_resource type="PackedScene" uid="uid://dmr0fcamx7t56" path="res://addons/virtual_joystick/virtual_joystick_scene.tscn" id="13_wkdj7"]
-[ext_resource type="Texture2D" uid="uid://dl7axege7hp8f" path="res://UI/on_toggle_btn.png" id="14_af28b"]
+[ext_resource type="Texture2D" uid="uid://dlyslg0xlyjfo" path="res://PLAYER/mobile_controls/run_pressed.png" id="14_7kt33"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x3syo"]
 
@@ -20,6 +22,9 @@
 points = PackedVector3Array(-0.12520654, -0.532801, -0.4805069, 0.022783129, 0.4760704, 0.49888408, 0.16971254, 0.5591441, 0.46417162, 0.23105091, -0.8035912, 0.32045516, 0.40741014, 0.651043, -0.24352328, -0.4827893, 0.59484255, 0.082213186, -0.3628679, -0.68231165, 0.2896967, 0.46904355, -0.65452886, -0.06627126, -0.12744367, 0.8427015, -0.33810276, -0.39343542, -0.6839421, -0.24471663, 0.43825462, 0.62330925, 0.20084947, 0.0841477, 0.977454, 0.11479468, -0.06820232, -0.9764576, -0.12927033, 0.20054972, -0.56312895, -0.4514544, -0.18552664, 0.59545326, -0.4534751, -0.27336287, 0.59226835, 0.40775412, -0.0069364863, -0.47682306, 0.49966025, 0.37582088, -0.5886136, 0.31695515, 0.111579016, 0.5630594, -0.48117727, -0.41725034, 0.5278656, -0.27049688, -0.48454633, -0.59697217, -0.06650971, -0.27974695, 0.90856135, 0.05333608, -0.25019687, -0.8807117, 0.20531891, 0.263647, -0.90277094, -0.1273943, 0.29336792, 0.8715263, -0.15719566, 0.3734115, -0.5263189, -0.32824618, 0.4996626, 0.47664148, -0.0068885577, 0.053105574, 0.8750009, 0.32470253, -0.15454252, -0.5908538, 0.4658794, -0.09727988, -0.7823577, -0.39818847, -0.3876489, -0.49817133, 0.31564978, -0.30067965, -0.58799505, -0.38890144)
 
 [sub_resource type="FontVariation" id="FontVariation_wkdj7"]
+base_font = ExtResource("5_7fthd")
+
+[sub_resource type="FontVariation" id="FontVariation_af28b"]
 base_font = ExtResource("5_7fthd")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gvfuq"]
@@ -182,26 +187,24 @@ text = "LOOSER "
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="CanvasLayer/gameover"]
+[node name="subtext" type="Label" parent="CanvasLayer/gameover"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -170.0
-offset_top = 54.0
-offset_right = 170.0
-offset_bottom = 214.0
+offset_left = -337.0
+offset_top = 42.0
+offset_right = 388.0
+offset_bottom = 228.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 111
-theme_override_styles/normal = ExtResource("9_bnhob")
-theme_override_styles/pressed = ExtResource("9_bnhob")
-theme_override_styles/hover = ExtResource("9_bnhob")
-theme_override_styles/disabled = ExtResource("9_bnhob")
-theme_override_styles/focus = ExtResource("9_bnhob")
-text = "RETRY"
+theme_override_fonts/font = SubResource("FontVariation_af28b")
+theme_override_font_sizes/font_size = 91
+text = "Wait.. Loading Lobby Scene..."
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="game_over" type="AudioStreamPlayer" parent="CanvasLayer/gameover"]
 stream = ExtResource("3_yrfig")
@@ -256,13 +259,13 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="back_cam" type="SubViewportContainer" parent="CanvasLayer"]
-offset_right = 239.0
-offset_bottom = 202.0
+offset_right = 402.0
+offset_bottom = 298.0
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="CanvasLayer/back_cam"]
 handle_input_locally = false
-size = Vector2i(239, 202)
+size = Vector2i(402, 298)
 render_target_update_mode = 4
 
 [node name="rear_cam_marker" type="Marker3D" parent="CanvasLayer/back_cam/SubViewport"]
@@ -287,7 +290,7 @@ offset_left = -110.0
 offset_right = 110.0
 offset_bottom = 77.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 56
+theme_override_font_sizes/font_size = 66
 text = "00:00"
 horizontal_alignment = 1
 script = ExtResource("8_3bb6o")
@@ -296,8 +299,8 @@ start_minutes = 3
 [node name="Timer" type="Timer" parent="CanvasLayer/timer_label"]
 
 [node name="menu" type="TouchScreenButton" parent="CanvasLayer"]
-position = Vector2(1147, 11)
-scale = Vector2(0.5, 0.5)
+position = Vector2(1764, 21)
+scale = Vector2(0.7, 0.673)
 texture_normal = ExtResource("5_d1135")
 
 [node name="menu_ui" type="Control" parent="CanvasLayer"]
@@ -379,27 +382,25 @@ grow_vertical = 2
 
 [node name="Virtual Joystick" parent="CanvasLayer/MOBILECONTROLS" instance=ExtResource("13_wkdj7")]
 layout_mode = 1
-offset_left = 69.0
-offset_top = -321.0
-offset_right = 288.0
-offset_bottom = -129.0
+offset_left = 224.0
+offset_top = -452.0
+offset_right = 449.0
+offset_bottom = -257.0
+scale = Vector2(1.3, 1.3)
 action_left = "left"
 action_right = "right"
 action_up = "up"
 action_down = "down"
 
 [node name="jump" type="TouchScreenButton" parent="CanvasLayer/MOBILECONTROLS"]
-position = Vector2(1098.3057, 539.8884)
-rotation = -1.5707964
-scale = Vector2(0.7, 0.51666653)
-texture_normal = ExtResource("5_d1135")
+position = Vector2(1536, 654)
+texture_normal = ExtResource("12_af28b")
 action = "jump"
 
 [node name="sprint" type="TouchScreenButton" parent="CanvasLayer/MOBILECONTROLS"]
-position = Vector2(1106.3057, 370.88843)
-rotation = -1.8325958
-scale = Vector2(0.7, 0.51666653)
-texture_normal = ExtResource("14_af28b")
+position = Vector2(1533, 402)
+texture_normal = ExtResource("13_688gd")
+texture_pressed = ExtResource("14_7kt33")
 action = "sprint"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -413,7 +414,6 @@ autoplay = true
 bus = &"Sfx"
 parameters/looping = true
 
-[connection signal="pressed" from="CanvasLayer/gameover/Button" to="." method="_on_button_button_down"]
 [connection signal="pressed" from="CanvasLayer/menu" to="Menu_handler" method="_on_go_to_menu_pressed"]
 [connection signal="pressed" from="CanvasLayer/menu_ui/hbox/menu" to="Menu_handler" method="_on_go_to_lobby_pressed"]
 [connection signal="pressed" from="CanvasLayer/menu_ui/hbox/cancel" to="Menu_handler" method="_on_cencel_pressed"]

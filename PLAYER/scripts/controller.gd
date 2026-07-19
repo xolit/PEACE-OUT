@@ -283,7 +283,3 @@ func _die(timeover) -> void:
 		if is_instance_valid(enemy):
 			enemy.queue_free()
 	Total_enemies.clear()
-
-func _on_button_button_down() -> void:
-	get_tree().paused = false
-	get_tree().reload_current_scene()
