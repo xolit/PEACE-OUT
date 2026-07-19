@@ -228,27 +228,14 @@ func _handle_jump() -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = jump_velocity
 
-#func _handle_sounds() -> void:
-	#var horizontal_velocity = Vector2(velocity.x, velocity.z).length()
-	#
-	#if is_on_floor() and horizontal_velocity > 0.1:
-		#if not run_sfx.playing:
-			#run_sfx.play()
-		#run_sfx.pitch_scale = 1.2 if _current_speed == sprint_speed else 1.0
-	#else:
-		#if run_sfx.playing:
-			#run_sfx.stop() 
-
 func _handle_sounds():
 	var horizontal_velocity := Vector2(velocity.x, velocity.z).length()
 
 	if is_on_floor() and horizontal_velocity > 0.1 and GlobalSave.Contents_to_save.get("Sfx", true):
 		if !run_sfx.playing:
-			print("PLAY")
 			run_sfx.play()
 	else:
 		if run_sfx.playing:
-			print("STOP")
 			run_sfx.stop()
 
 func _handle_sprint() -> void:

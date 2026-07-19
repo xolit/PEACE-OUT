@@ -3,6 +3,8 @@ extends Node
 var FileLocation: String = "user://User_data.save" # Use .save for binary data
 
 var Contents_to_save: Dictionary = {
+	"MaxFps": 0,
+	"ShowFps": false,
 	"Music": true,
 	"AllVolume": 100.0,
 	"Sfx": true,
@@ -16,8 +18,9 @@ var Contents_to_save: Dictionary = {
 }
 
 func _ready() -> void:
-	_load() # Just load the data
-	# REMOVED: The DirAccess.remove_absolute block that was deleting your file!
+	_load()
+	_new_fps_apply()
+
 
 func _save() -> void:
 	var file := FileAccess.open(FileLocation, FileAccess.WRITE)
@@ -37,3 +40,6 @@ func _load() -> Dictionary:
 	else:
 		_save() # Create default file if it doesn't exist
 	return Contents_to_save
+
+func _new_fps_apply() -> void:
+	Engine.max_fps = Contents_to_save.get("MaxFps", 0)

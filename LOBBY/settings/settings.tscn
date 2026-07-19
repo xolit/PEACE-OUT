@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://tka0shj4j7pj"]
+[gd_scene load_steps=20 format=3 uid="uid://tka0shj4j7pj"]
 
 [ext_resource type="Script" uid="uid://eslmg5lq5w72" path="res://LOBBY/settings/settings.gd" id="1_us67y"]
 [ext_resource type="Texture2D" uid="uid://60eyfsybvyp7" path="res://UI/settings-bg.png" id="2_6f2di"]
@@ -32,6 +32,21 @@ base_font = ExtResource("3_jiryf")
 
 [sub_resource type="FontVariation" id="FontVariation_wcev6"]
 base_font = ExtResource("7_jiryf")
+
+[sub_resource type="FontVariation" id="FontVariation_y632b"]
+base_font = ExtResource("7_jiryf")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kv1dl"]
+bg_color = Color(0.60038817, 0.60038817, 0.60038817, 0)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="settings" type="Control"]
 layout_mode = 3
@@ -307,6 +322,29 @@ texture_normal = ExtResource("3_6f2di")
 texture_pressed = ExtResource("4_jiryf")
 stretch_mode = 3
 
+[node name="showFps" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="showFps" type="Label" parent="ScrollContainer/VBoxContainer/showFps"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_jiryf")
+theme_override_font_sizes/font_size = 86
+text = "ShowFps: "
+
+[node name="HSeparator2" type="VSeparator" parent="ScrollContainer/VBoxContainer/showFps"]
+layout_mode = 2
+theme_override_constants/separation = 60
+theme_override_styles/separator = SubResource("StyleBoxEmpty_xm55d")
+
+[node name="showFps_btn" type="TextureButton" parent="ScrollContainer/VBoxContainer/showFps"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("3_6f2di")
+texture_pressed = ExtResource("4_jiryf")
+stretch_mode = 3
+
 [node name="Senstivity" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
@@ -334,6 +372,39 @@ max_length = 6
 context_menu_enabled = false
 emoji_menu_enabled = false
 
+[node name="fps" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="fps" type="Label" parent="ScrollContainer/VBoxContainer/fps"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_od73j")
+theme_override_font_sizes/font_size = 86
+text = "Fps: "
+
+[node name="HSeparator2" type="VSeparator" parent="ScrollContainer/VBoxContainer/fps"]
+layout_mode = 2
+theme_override_constants/separation = 277
+theme_override_styles/separator = SubResource("StyleBoxEmpty_jekgc")
+
+[node name="fpsOptionButton" type="OptionButton" parent="ScrollContainer/VBoxContainer/fps"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = SubResource("FontVariation_y632b")
+theme_override_font_sizes/font_size = 61
+theme_override_styles/normal = SubResource("StyleBoxFlat_kv1dl")
+alignment = 1
+selected = 0
+item_count = 4
+popup/item_0/text = "default"
+popup/item_0/id = 0
+popup/item_1/text = "90"
+popup/item_1/id = 1
+popup/item_2/text = "60"
+popup/item_2/id = 2
+popup/item_3/text = "30"
+popup/item_3/id = 3
+
 [connection signal="pressed" from="save_btn" to="." method="_on_save_btn_pressed"]
 [connection signal="value_changed" from="ScrollContainer/VBoxContainer/volume/VBoxContainer/vol_Slider" to="." method="_on_vol_slider_value_changed"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/Music/music_btn" to="." method="_on_music_btn_toggled"]
@@ -343,3 +414,5 @@ emoji_menu_enabled = false
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/back_cam/backcam_btn" to="." method="_on_backcam_btn_toggled"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/watertexture/watertexture_btn" to="." method="_on_watertexture_btn_toggled"]
 [connection signal="toggled" from="ScrollContainer/VBoxContainer/walltexture/walltexture_btn" to="." method="_on_walltexture_btn_toggled"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/showFps/showFps_btn" to="." method="_on_show_fps_btn_toggled"]
+[connection signal="item_selected" from="ScrollContainer/VBoxContainer/fps/fpsOptionButton" to="." method="_on_fps_option_button_item_selected"]

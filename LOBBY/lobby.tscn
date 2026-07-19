@@ -450,12 +450,12 @@ color = Color(0.4822746, 0.32086813, 0.368734, 0)
 
 [node name="game_name" type="Label" parent="ColorRect"]
 layout_mode = 0
-offset_left = 60.0
-offset_top = 48.0
-offset_right = 577.0
-offset_bottom = 180.0
+offset_left = 80.0
+offset_top = 148.0
+offset_right = 597.0
+offset_bottom = 326.0
 theme_override_fonts/font = SubResource("FontVariation_84vp8")
-theme_override_font_sizes/font_size = 96
+theme_override_font_sizes/font_size = 136
 text = "PEACE OUT"
 vertical_alignment = 1
 
@@ -691,6 +691,7 @@ libraries = {
 }
 
 [node name="3dLobby" type="Node3D" parent="."]
+visible = false
 
 [node name="backroom" type="Node3D" parent="3dLobby"]
 

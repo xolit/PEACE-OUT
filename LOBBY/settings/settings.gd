@@ -26,6 +26,7 @@ extends Control
 @onready var play_text_btn: Button = $"../Control/play_text_btn"
 @onready var quit_text_btn: Button = $"../Control/quit_text_btn"
 @onready var settings_text_btn: Button = $"../Control/settings_text_btn"
+@onready var show_fps_btn: TextureButton = $ScrollContainer/VBoxContainer/showFps/showFps_btn
 
 #@onready var game_states: Node = $"../../game_states"
 
@@ -35,7 +36,16 @@ extends Control
 
 @export var is_lobby_setting: bool
 
+@onready var fps_option_button: OptionButton = $ScrollContainer/VBoxContainer/fps/fpsOptionButton
+
+
 var data: Dictionary
+const fps_list = {
+	0: 0,
+	1: 90,
+	2: 60,
+	3: 30,
+}
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
@@ -105,7 +115,17 @@ func defaul_setting_checker() -> void:
 	
 
 func apply_settings() -> void:
+	var saved_fps := int(data.get("MaxFps", 0))
+	for index in fps_list.keys():
+		if fps_list[index] == saved_fps:
+			fps_option_button.select(index)
+			break
+	
 	input_4_sens.text = str(data.get("Senstivity", 0.002))
+	
+	var showFps_state: bool = data.get("ShowFps", true)
+	show_fps_btn.button_pressed = showFps_state
+	
 	var music_state: bool = data.get("Music", true)
 	music_btn.button_pressed = music_state
 	update_bus_mute_state("Music", music_state)
@@ -172,3 +192,15 @@ func _on_walltexture_btn_toggled(toggled_on: bool) -> void:
 	if data.get("Sfx", true):
 		click_sfx.play()
 	GlobalSave.Contents_to_save["walltexture"] = toggled_on
+
+
+func _on_fps_option_button_item_selected(index: int) -> void:
+	var selected_fps = fps_list[index]
+	GlobalSave.Contents_to_save["MaxFps"] = selected_fps
+	GlobalSave._new_fps_apply()
+
+
+func _on_show_fps_btn_toggled(toggled_on: bool) -> void:
+	if data.get("Sfx", true):
+		click_sfx.play()
+	GlobalSave.Contents_to_save["ShowFps"] = toggled_on
